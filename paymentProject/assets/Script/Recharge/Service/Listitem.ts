@@ -44,7 +44,7 @@ export default class NewClass extends cc.Component {
     }
 
     onClick(){
-        cc.log('点击复制')
+        this.config.copyToClipBoard(this.number)
     }
     // update (dt) {}
 }

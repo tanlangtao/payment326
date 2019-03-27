@@ -45,7 +45,7 @@ export default class NewClass extends cc.Component {
         this.UrlData =config.getUrlData();
         this.token = config.token;
         //初始请求
-        this.fetchDc()
+        this.fetchIndex()
         // input 输入监听
         this.getPublicInput()
         
@@ -55,7 +55,7 @@ export default class NewClass extends cc.Component {
 
     }
 
-    public fetchDc(){
+    public fetchIndex(){
         var url = `${this.UrlData.host}/api/replace_payment/index?user_id=${this.UrlData.user_id}&token=${this.token}`;
         fetch(url,{
             method:'get'
@@ -97,11 +97,11 @@ export default class NewClass extends cc.Component {
         var url = `${this.UrlData.host}/api/replace_payment/summitBuyPoints`;
         this.FormData= new FormData();
         this.FormData.append('user_id',this.UrlData.user_id)
-        this.FormData.append('user_name',this.UrlData.user_name)
+        this.FormData.append('user_name',decodeURI(this.UrlData.user_name))
         this.FormData.append('amount',this.amountInput.string)
         this.FormData.append('client',this.UrlData.client)
         this.FormData.append('proxy_user_id',this.UrlData.proxy_user_id)
-        this.FormData.append('proxy_name',this.UrlData.proxy_name)
+        this.FormData.append('proxy_name',decodeURI(this.UrlData.proxy_name))
         this.FormData.append('package_id',this.UrlData.package_id)
         this.FormData.append('token',this.token)
         fetch(url,{
@@ -113,7 +113,8 @@ export default class NewClass extends cc.Component {
                 var content = cc.find('Canvas/Recharge/Content');
                 content.addChild(node);
                 node.getComponent('Service').init({
-                    results:data
+                    results:data,
+                    parentComponent:this
                 })
             }else{
                 this.showAlert(data.msg)
@@ -135,7 +136,7 @@ export default class NewClass extends cc.Component {
         var amount = Number(this.amountInput.string);
         if(this.amountInput.string ==''){
             this.showAlert('充值金额不能为空!')
-        }else if(amount <= 1 || amount >= 99999){
+        }else if(amount < 1 || amount > 99999){
             this.showAlert('不符合充值范围！')
         }else{
             if(this.results.data.is_undone == 1){

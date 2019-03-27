@@ -30,7 +30,26 @@ export default class Config extends cc.Component {
         return arr;
     }
     
-    public copyToClipBoard(value) {
+    public copyToClipBoard(str) {
+        if (cc.sys.isNative) {
+        } else if (cc.sys.isBrowser) {
+            var textArea:any = null;
+            textArea = document.getElementById("clipBoard");
+            if (textArea === null) {
+                textArea = document.createElement("textarea");
+                textArea.id = "clipBoard";
+                textArea.textContent = str;
+                document.body.appendChild(textArea);
+            }
+            textArea.select();
+            try {
+                const msg = document.execCommand('copy') ? 'successful' : 'unsuccessful';
+                cc.log("已经复制到剪贴板");
+                document.body.removeChild(textArea);
+            } catch (err) {
+                cc.log("复制到剪贴板失败");
+            }
+        }
     }
     
     public toDecimal(num) {
@@ -52,6 +71,16 @@ export default class Config extends cc.Component {
         return s_x;
     }
     
+    public getTime(time){
+        var date = new Date(time * 1000);    //根据时间戳生成的时间对象
+        var m = date.getMonth() + 1 > 9 ? date.getMonth()+1 : `0${date.getMonth()+1}`;
+        var d = date.getDate()  > 9 ? date.getDate(): `0${date.getDate()}`;
+        var h = date.getHours()  > 9 ? date.getHours() : `0${date.getHours()}`;
+        var minute = date.getMinutes()  > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
+        var s = date.getSeconds()  > 9 ? date.getSeconds(): `0${date.getSeconds()}`;
+        var newDate =  m + "-" + d + " " + h + ":" + minute + ":" + s;
+        return newDate;
+    }
     onLoad () {
 
     }

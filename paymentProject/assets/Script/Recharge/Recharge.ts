@@ -18,6 +18,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     NavToggle: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    RechargeHistory: cc.Prefab = null;
+
     @property(cc.Node)
     ToggleContainer: cc.Node = null;
 
@@ -50,7 +53,9 @@ export default class NewClass extends cc.Component {
     }
 
     public historyBtnClick(){
-        console.log('历史')
+        var node = cc.instantiate(this.RechargeHistory);
+        var canvas = cc.find('Canvas');
+        canvas.addChild(node);
     }
 
     public fetchZfb(){

@@ -43,7 +43,7 @@ export default class NewClass extends cc.Component {
     }
 
     fetchReplacePayment(){
-        var url = `${this.UrlData.host}/api/replace_payment/cleanReplacePaymentInfo`;
+        var url = `${this.UrlData.host}/api/order/cancelorder`;
         this.FormData= new FormData();
         this.FormData.append('user_id',this.UrlData.user_id)
         this.FormData.append('order_id',this.data.payment_order_id)
@@ -54,7 +54,7 @@ export default class NewClass extends cc.Component {
         }).then((data)=>data.json()).then((data)=>{
             var dc = cc.find('Canvas/Recharge/Content/Dc').getComponent('Dc');
             if(data.status == 0){
-                dc.fetchDc();
+                dc.fetchIndex();
                 dc.showAlert('取消成功！')
             }else{
                 dc.showAlert(data.msg)

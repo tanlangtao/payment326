@@ -15,7 +15,16 @@ export default class NewClass extends cc.Component {
 
     @property(cc.Label)
     label: cc.Label = null;
-    
+
+    @property(cc.Prefab)
+    Dc : cc.Prefab = null;
+
+    @property(cc.Prefab)
+    Zfb : cc.Prefab = null;
+
+    @property(cc.Prefab)
+    ZfbToBank : cc.Prefab = null;
+
     public init(data){
         this.label.string =data.text;
     }
@@ -29,5 +38,17 @@ export default class NewClass extends cc.Component {
 
     }
 
+    onClick(){
+        var content = cc.find('Canvas/Recharge/Content');
+        if(this.label.string == '人工代充值'){
+            var node = cc.instantiate(this.Dc);
+        }else if(this.label.string == '支付宝'){
+            var node = cc.instantiate(this.Zfb);
+        }else if(this.label.string == '支付宝转银行卡'){
+            var node = cc.instantiate(this.ZfbToBank);
+        }
+        content.removeAllChildren();
+        content.addChild(node);
+    }
     // update (dt) {}
 }

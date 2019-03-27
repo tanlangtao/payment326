@@ -20,20 +20,34 @@ export default class NewClass extends cc.Component {
     List: cc.Node = null;
     
     @property()
-    results  = {};
+    results :any = {};
+    parentComponent = null;
     // LIFE-CYCLE CALLBACKS:
 
     public init(data){
         this.results = data.results;
+        this.parentComponent = data.parentComponent;
+        for(var i = 0; i< this.results.data.list.length ; i++){
+            var node = cc.instantiate(this.ListItem);
+            this.List.addChild(node);
+            var data = this.results.data.list[i];
+            node.getComponent('Listitem').init({
+                id:data.id,
+                name:data.nick_name,
+                type:data.type == 1?'微信' :'QQ',
+                number:data.contact
+            });
+        }
     }
     // onLoad () {}
 
     start () {
-        console.log(this.results)
+
     }
 
     fanhuiClick(){
-        this.node.removeFromParent()
+        this.node.removeFromParent();
+        this.parentComponent.fetchIndex()
     }
     // update (dt) {}
 }

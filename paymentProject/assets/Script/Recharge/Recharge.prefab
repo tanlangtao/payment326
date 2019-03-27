@@ -1282,7 +1282,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -350,
+      "x": -342,
       "y": 163,
       "z": 0
     },
@@ -1339,7 +1339,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "c9ytrs8QpELovK8rjnGgKb",
+    "fileId": "8dP3zM2qNOn5LK5Dn1RKqz",
     "sync": false
   },
   {
@@ -1378,7 +1378,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 250,
-      "height": 50
+      "height": 60.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1387,8 +1387,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -221,
-      "y": 98,
+      "x": -219,
+      "y": 85,
       "z": 0
     },
     "_scale": {
@@ -1579,7 +1579,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "35ZjMFqJhKwLrJW1bAUwvz",
+    "fileId": "89QR+VsgtAx5qBXle6ylNB",
     "sync": false
   },
   {
@@ -1677,7 +1677,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "f63BBrSApNFqg/yzlfpSJX",
+    "fileId": "6aW7lcl/JFW7RZgF4WtBMo",
     "sync": false
   },
   {
@@ -1775,7 +1775,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "fe4MDmNuFPWqfUL2y2J5SY",
+    "fileId": "94r/B1Z05FAbxfOh6BYdMT",
     "sync": false
   },
   {
@@ -1827,7 +1827,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "d6+IsVJRZNJ6REzcanWI2U",
+    "fileId": "dedgPSH7hIfLQLi3jqV/fn",
     "sync": false
   },
   {
@@ -2011,7 +2011,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "b9VCKFWDpFoYNhsGBUzrVD",
+    "fileId": "6bJNB1kNBBP7GmQLs2q3Gr",
     "sync": false
   },
   {
@@ -2050,7 +2050,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "b16FXyYC1OtomTM3fgRhXi",
+    "fileId": "4a5TYuhUZJGYrqA8DdeN5P",
     "sync": false
   },
   {
@@ -2099,7 +2099,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 13,
-      "y": 100,
+      "y": 86,
       "z": 0
     },
     "_scale": {
@@ -2217,7 +2217,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "b2PqlpNhdEIJRd9dPFmrnw",
+    "fileId": "51Cz2nx3JLkLPVBzUUbjYo",
     "sync": false
   },
   {
@@ -2336,7 +2336,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "d7g+LghAhEXK4u3dpkKs3L",
+    "fileId": "0bn5CejKtHRa276uoQfSJJ",
     "sync": false
   },
   {
@@ -2382,7 +2382,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": -7,
-      "y": -28,
+      "y": -50,
       "z": 0
     },
     "_scale": {
@@ -2500,7 +2500,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "3dSu09Lz9APpaBzhERN5zT",
+    "fileId": "c5RRVA/UBCULyKzcCwgPxU",
     "sync": false
   },
   {
@@ -2539,7 +2539,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "47I+xNtYFPZZhYZ14kcUQF",
+    "fileId": "62N6QSkyRJtJNikf7CaoN6",
     "sync": false
   },
   {
@@ -2639,7 +2639,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
+      "width": 100,
       "height": 40
     },
     "_anchorPoint": {
@@ -2682,8 +2682,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "",
-    "_N$string": "",
+    "_string": "买卖金币",
+    "_N$string": "买卖金币",
     "_fontSize": 25,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -2706,7 +2706,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "26yAnZg+5Ia6qlfMpaO+h3",
+    "fileId": "b8p+oEe1pFFY1Jfb2nPblq",
     "sync": false
   },
   {
@@ -2825,7 +2825,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "248t9KEQJE0rWbwD971eWH",
+    "fileId": "49LDD/POBMH4B7Bdgjajtc",
     "sync": false
   },
   {
@@ -2932,7 +2932,7 @@
     "asset": {
       "__uuid__": "dc6263fc-3fc5-4c11-a872-af5bc6566a8f"
     },
-    "fileId": "8crbVC+TRPsqln1frf83pl",
+    "fileId": "09V8s4KF1OSq3/xFRf4LK9",
     "sync": false
   },
   {
@@ -3194,6 +3194,9 @@
     "_enabled": true,
     "NavToggle": {
       "__uuid__": "9d6daef0-dd70-4680-90cd-41e965641fed"
+    },
+    "RechargeHistory": {
+      "__uuid__": "f8ef4cc7-b4b2-4581-b3e8-fadb24ee7d6d"
     },
     "ToggleContainer": {
       "__id__": 23
