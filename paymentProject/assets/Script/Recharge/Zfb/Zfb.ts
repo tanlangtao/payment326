@@ -152,7 +152,11 @@ export default class NewClass extends cc.Component {
     }
 
     showWebView(){
-        var url = `${this.UrlData.host}/api/payment/aliPayPaymentIndex?user_id=${this.UrlData.user_id}&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/payment/payment?user_id=${this.UrlData.user_id}&user_name=${decodeURI(this.UrlData.user_name)}&
+        payment_amount=${this.amountInput.string}&channel_type=${this.current.channel_id}&channel_name=${this.current.name}&
+        pay_name=${this.current.nick_name}&pay_type=${this.current.pay_type}&client=${this.UrlData.client}&proxy_user_id=${this.UrlData.proxy_user_id}&
+        proxy_name=${this.UrlData.proxy_name}&package_id=${this.UrlData.package_id}&token=${this.token}`;
+        console.log(url);
         var node = cc.instantiate(this.ZfbViewAlert);
         var canvas = cc.find('Canvas');
         canvas.addChild(node);

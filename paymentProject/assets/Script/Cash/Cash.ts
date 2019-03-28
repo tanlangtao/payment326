@@ -19,7 +19,7 @@ export default class NewClass extends cc.Component {
     NavToggle: cc.Prefab = null;
 
     @property(cc.Prefab)
-    RechargeHistory: cc.Prefab = null;
+    CashHistory: cc.Prefab = null;
 
     @property(cc.Node)
     ToggleContainer: cc.Node = null;
@@ -53,7 +53,7 @@ export default class NewClass extends cc.Component {
     }
 
     public historyBtnClick(){
-        var node = cc.instantiate(this.RechargeHistory);
+        var node = cc.instantiate(this.CashHistory);
         var canvas = cc.find('Canvas');
         canvas.addChild(node);
     }

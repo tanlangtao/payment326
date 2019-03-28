@@ -15,7 +15,7 @@ export default class Config extends cc.Component {
 
     @property()
     public token:string=''
-
+    //获取url参数
     public getUrlData(){
         var path = location.search;
         var arr:any = {};
@@ -29,7 +29,7 @@ export default class Config extends cc.Component {
         }
         return arr;
     }
-    
+    //复制内容到剪贴板
     public copyToClipBoard(str) {
         if (cc.sys.isNative) {
         } else if (cc.sys.isBrowser) {
@@ -51,7 +51,7 @@ export default class Config extends cc.Component {
             }
         }
     }
-    
+    //保留两位小数
     public toDecimal(num) {
         var result = parseFloat(num);
         if (isNaN(result)) {
@@ -70,7 +70,26 @@ export default class Config extends cc.Component {
         }
         return s_x;
     }
-    
+    //保留一位小数
+    public toDecimal1(num) {
+        var result = parseFloat(num);
+        if (isNaN(result)) {
+            alert('传递参数错误，请检查！');
+            return false;
+        }
+        result = Math.round(num * 100) / 100;
+        var s_x = result.toString();
+        var pos_decimal = s_x.indexOf('.');
+        if (pos_decimal < 0) {
+        pos_decimal = s_x.length;
+        s_x += '.';
+        }
+        while (s_x.length <= pos_decimal + 1) {
+        s_x += '0';
+        }
+        return s_x;
+    }
+    //时间戳转换
     public getTime(time){
         var date = new Date(time * 1000);    //根据时间戳生成的时间对象
         var m = date.getMonth() + 1 > 9 ? date.getMonth()+1 : `0${date.getMonth()+1}`;
@@ -81,7 +100,14 @@ export default class Config extends cc.Component {
         var newDate =  m + "-" + d + " " + h + ":" + minute + ":" + s;
         return newDate;
     }
-    onLoad () {
+    
+    public testBankNum(num){
+        if (isNaN(num)) {
+            alert('传递参数错误，请检查！');
+            return false;
+        }
+        var data = num.replace(/\s/g,'').replace(/(\d{4})\d+(\d{4})$/, "**** **** **** $2") ;
+        return data;
 
     }
 }
