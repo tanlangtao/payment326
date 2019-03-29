@@ -62,7 +62,7 @@ export default class NewClass extends cc.Component {
         }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
                 this.results = data;
-                this.pageLabel.string = `${this.page} / ${data.data.total_page == 0 ? '1' : data.data.total_page}`
+                this.pageLabel.string = `${this.page} / ${data.data.total_page == 0 ? '1' : data.data.total_page}`;
                 var listArr = data.data.list;
                 for(var i = 0; i < listArr.length; i++){
                     var data = listArr[i];

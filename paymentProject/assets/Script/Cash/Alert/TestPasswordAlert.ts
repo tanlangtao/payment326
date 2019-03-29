@@ -65,7 +65,9 @@ export default class NewClass extends cc.Component {
             method:'GET',
         }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
-                // type=1,弹出绑定帐户 
+                // type=1,弹出绑定帐户
+                // type =2 , 确认兑换
+                // type =3 , 申请人工兑换
                 if(this.type == 1){
                     var self = this;
                     var timer = setTimeout(()=>{
@@ -74,6 +76,8 @@ export default class NewClass extends cc.Component {
                     },500)
                 }else if(this.type == 2){
                     this.parentComponent.fetchwithDrawApply(this.passwordInput.string);
+                }else if(this.type == 3){
+                    this.parentComponent.fetchRgDh();
                 }
             }else{
                 this.parentComponent.showAlert(data.msg)

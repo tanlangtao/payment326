@@ -13,6 +13,9 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
 
+    @property(cc.Prefab)
+    publicAlert : cc.Prefab = null;
+
     @property(cc.Label)
     labelID: cc.Label = null;
 
@@ -44,7 +47,15 @@ export default class NewClass extends cc.Component {
     }
 
     onClick(){
-        this.config.copyToClipBoard(this.number)
+        this.config.copyToClipBoard(this.number);
+        this.showAlert(`复制成功！${this.number}`);
+    }
+
+    public showAlert(data){
+        var node = cc.instantiate(this.publicAlert);
+        var canvas = cc.find('Canvas');
+        canvas.addChild(node);
+        node.getComponent('PublicAlert').init(data)
     }
     // update (dt) {}
 }

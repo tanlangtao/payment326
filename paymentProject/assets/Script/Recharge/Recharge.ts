@@ -25,71 +25,75 @@ export default class NewClass extends cc.Component {
     ToggleContainer: cc.Node = null;
 
     @property(cc.Node)
-    Content:cc.Node = null;
+    Content: cc.Node = null;
 
     @property()
-    public UrlData : any = [];
-    public token : string = '';
-    public results : any = {};
-    public zfbResults : any = {};
+    public UrlData: any = [];
+    public token: string = '';
+    public results: any = {};
+    public zfbResults: any = {};
+
     // LIFE-CYCLE CALLBACKS:
 
-    
-    onLoad () {
-        
+
+    onLoad() {
+
         var config = new Config();
-        this.UrlData =config.getUrlData();
+        this.UrlData = config.getUrlData();
         this.token = config.token;
         //请求支付宝
         this.fetchZfb()
     }
 
-    start () {
+    start() {
 
 
     }
-    public exitBtnClick(){
-        
+
+    public exitBtnClick() {
+
     }
 
-    public historyBtnClick(){
+    public historyBtnClick() {
         var node = cc.instantiate(this.RechargeHistory);
         var canvas = cc.find('Canvas');
         canvas.addChild(node);
     }
 
-    public fetchZfb(){
+    public fetchZfb() {
         var url = `${this.UrlData.host}/api/payment/aliPayPaymentIndex?user_id=${this.UrlData.user_id}&token=${this.token}`;
-        fetch(url,{
-            method:'get'
-        }).then((data)=>data.json()).then((data)=>{
-            if(data.status == 0){
+        fetch(url, {
+            method: 'get'
+        }).then((data) => data.json()).then((data) => {
+            if (data.status == 0) {
                 this.zfbResults = data;
                 //动态渲染左侧导航
                 this.addNavToggle()
-            }else{
-                
+            } else {
+
             }
         })
+        let total = ''
     }
-    public addNavToggle(){
+
+    public addNavToggle() {
         var arr = [];
-        if(this.zfbResults.data.alipay.length == 0 && this.zfbResults.data.alipay2bank.length ==0 ){
+        if (this.zfbResults.data.alipay.length == 0 && this.zfbResults.data.alipay2bank.length == 0) {
             arr = ['人工代充值']
-        }else if(this.zfbResults.data.alipay.length ==0){
-            arr = ['人工代充值','支付宝转银行卡']
-        }else if(this.zfbResults.data.alipay2bank.length == 0){
-            arr = ['人工代充值','支付宝']
-        }else{
-            arr = ['人工代充值','支付宝','支付宝转银行卡']
+        } else if (this.zfbResults.data.alipay.length == 0) {
+            arr = ['人工代充值', '支付宝转银行卡']
+        } else if (this.zfbResults.data.alipay2bank.length == 0) {
+            arr = ['人工代充值', '支付宝']
+        } else {
+            arr = ['人工代充值', '支付宝', '支付宝转银行卡']
         }
-        for(let i:number = 0; i< arr.length; i++){
+        for (let i: number = 0; i < arr.length; i++) {
             var node = cc.instantiate(this.NavToggle);
             this.ToggleContainer.addChild(node);
             node.getComponent('NavToggle').init({
-                text:arr[i]
+                text: arr[i]
             })
         }
     }
-    
+
 }

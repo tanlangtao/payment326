@@ -14,145 +14,150 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
     @property()
-    public UrlData : any = [];
-    public token : string = '';
-    public results : any = {};
+    public UrlData: any = [];
+    public token: string = '';
+    public results: any = {};
 
     @property(cc.Prefab)
-    PublicInputAlert : cc.Prefab = null;
+    PublicInputAlert: cc.Prefab = null;
 
     @property(cc.Prefab)
-    CancleOrderAlert : cc.Prefab = null;
+    CancleOrderAlert: cc.Prefab = null;
 
     @property(cc.Prefab)
-    publicAlert : cc.Prefab = null;
+    publicAlert: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    SaleGold: cc.Prefab = null;
 
     @property(cc.EditBox)
-    amountInput : cc.EditBox = null;
-    
+    amountInput: cc.EditBox = null;
+
     @property(cc.Label)
     btn2Label: cc.Label = null;
-    
+
     @property(cc.Prefab)
     service: cc.Prefab = null;
-    
+
     @property()
-    FormData  = new FormData();
+    FormData = new FormData();
+
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         var config = new Config();
-        this.UrlData =config.getUrlData();
+        this.UrlData = config.getUrlData();
         this.token = config.token;
         //初始请求
         this.fetchIndex()
         // input 输入监听
         this.getPublicInput()
-        
-    }
-
-    start () {
 
     }
 
-    public fetchIndex(){
+    start() {
+
+    }
+
+    public fetchIndex() {
         var url = `${this.UrlData.host}/api/replace_payment/index?user_id=${this.UrlData.user_id}&token=${this.token}`;
-        fetch(url,{
-            method:'get'
-        }).then((data)=>data.json()).then((data)=>{
-            if(data.status == 0){
+        fetch(url, {
+            method: 'get'
+        }).then((data) => data.json()).then((data) => {
+            if (data.status == 0) {
                 this.results = data;
-                console.log(this.results,"123123");
-                if(this.results.data.is_replace == '1'){
-                    this.btn2Label.string = '我的代充'
-                }else {
-                    this.btn2Label.string = '申请代充'
-                }
-            }else{
-                
+            } else {
+
             }
         })
     }
 
-    public getPublicInput(){
+    public getPublicInput() {
         var PublicInputAlert = cc.instantiate(this.PublicInputAlert);
         var canvas = cc.find('Canvas');
-        this.amountInput.node.on('editing-did-began',(e)=>{
+        this.amountInput.node.on('editing-did-began', (e) => {
             canvas.addChild(PublicInputAlert);
             PublicInputAlert.getComponent('PublicInputAlert').init({
-                text:e.string,
-                input:this.amountInput
+                text: e.string,
+                input: this.amountInput
             })
         })
-        this.amountInput.node.on('text-changed',(e)=>{
+        this.amountInput.node.on('text-changed', (e) => {
             //验证input 不能以0开头的整数
-            this.amountInput.string = e.string.replace(/[^\d]/g,'').replace(/^0{1,}/g,'');
+            this.amountInput.string = e.string.replace(/[^\d]/g, '').replace(/^0{1,}/g, '');
             PublicInputAlert.getComponent('PublicInputAlert').init({
-                text:e.string,
-                input:this.amountInput
+                text: e.string,
+                input: this.amountInput
             })
         })
     }
-    fetchReplacePayment(){
+
+    fetchReplacePayment() {
         var url = `${this.UrlData.host}/api/replace_payment/summitBuyPoints`;
-        this.FormData= new FormData();
-        this.FormData.append('user_id',this.UrlData.user_id)
-        this.FormData.append('user_name',decodeURI(this.UrlData.user_name))
-        this.FormData.append('amount',this.amountInput.string)
-        this.FormData.append('client',this.UrlData.client)
-        this.FormData.append('proxy_user_id',this.UrlData.proxy_user_id)
-        this.FormData.append('proxy_name',decodeURI(this.UrlData.proxy_name))
-        this.FormData.append('package_id',this.UrlData.package_id)
-        this.FormData.append('token',this.token)
-        fetch(url,{
-            method:'POST',
-            body:this.FormData
-        }).then((data)=>data.json()).then((data)=>{
-            if(data.status == 0){
+        this.FormData = new FormData();
+        this.FormData.append('user_id', this.UrlData.user_id)
+        this.FormData.append('user_name', decodeURI(this.UrlData.user_name))
+        this.FormData.append('amount', this.amountInput.string)
+        this.FormData.append('client', this.UrlData.client)
+        this.FormData.append('proxy_user_id', this.UrlData.proxy_user_id)
+        this.FormData.append('proxy_name', decodeURI(this.UrlData.proxy_name))
+        this.FormData.append('package_id', this.UrlData.package_id)
+        this.FormData.append('token', this.token)
+        fetch(url, {
+            method: 'POST',
+            body: this.FormData
+        }).then((data) => data.json()).then((data) => {
+            if (data.status == 0) {
                 var node = cc.instantiate(this.service);
                 var content = cc.find('Canvas/Recharge/Content');
                 content.addChild(node);
                 node.getComponent('Service').init({
-                    results:data,
-                    parentComponent:this
+                    results: data,
+                    parentComponent: this
                 })
-            }else{
+            } else {
                 this.showAlert(data.msg)
             }
         })
     }
-    public showAlert(data){
+
+    public showAlert(data) {
         var node = cc.instantiate(this.publicAlert);
         var canvas = cc.find('Canvas');
         canvas.addChild(node);
         node.getComponent('PublicAlert').init(data)
     }
-    public deleteAmount(){
+
+    public deleteAmount() {
         this.amountInput.string = '';
     }
 
     //确认充值按钮回调
-    public btn1Click(){
+    public btn1Click() {
         var amount = Number(this.amountInput.string);
-        if(this.amountInput.string ==''){
+        if (this.amountInput.string == '') {
             this.showAlert('充值金额不能为空!')
-        }else if(amount < 1 || amount > 99999){
+        } else if (amount < 1 || amount > 99999) {
             this.showAlert('不符合充值范围！')
-        }else{
-            if(this.results.data.is_undone == 1){
+        } else {
+            if (this.results.data.is_undone == 1) {
                 var node = cc.instantiate(this.CancleOrderAlert);
                 var canvas = cc.find('Canvas');
                 canvas.addChild(node);
                 node.getComponent('CancleOrderAlert').init(this.results.data)
-            }else{
+            } else {
                 this.fetchReplacePayment()
             }
-            
+
         }
     }
-    //申请代充按钮回调
-    btn2Click(){
-        
+
+    //出售金币按钮回调
+    btn2Click() {
+        let node = cc.instantiate(this.SaleGold);
+        var content = cc.find('Canvas/Recharge/Content');
+        content.addChild(node);
     }
+
     // update (dt) {}
 }

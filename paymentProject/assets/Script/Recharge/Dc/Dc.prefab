@@ -33,7 +33,7 @@
       }
     ],
     "_active": true,
-    "_level": 3,
+    "_level": 1,
     "_components": [
       {
         "__id__": 47
@@ -182,7 +182,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "a2f/l2z91HJ6lBH9oUXrXm",
     "sync": false
@@ -422,7 +422,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "06p0i11PRNyI/zc38l6tQN",
     "sync": false
@@ -520,7 +520,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "17URb2+xFJKrkWJ/rQanvW",
     "sync": false
@@ -618,7 +618,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "75f5fOy7RNhYbES9emzDe+",
     "sync": false
@@ -670,7 +670,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "9epPowzPVLLJNDYSxuyCBd",
     "sync": false
@@ -854,7 +854,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "68YszdkkhMrqPgMSe65JoH",
     "sync": false
@@ -893,7 +893,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "48CMMu8TFBL4BBAfnl3LR5",
     "sync": false
@@ -1060,7 +1060,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "33ub/eEsNOmqp3DJbhLU0Q",
     "sync": false
@@ -1179,7 +1179,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "29kZQLekxKQL89ggHkgFS9",
     "sync": false
@@ -1343,7 +1343,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "f9bK1TF4VPTZOxh941yDIz",
     "sync": false
@@ -1382,7 +1382,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "b6troEAGBJJLMwikkfZrsK",
     "sync": false
@@ -1484,7 +1484,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
+      "width": 100,
       "height": 40
     },
     "_anchorPoint": {
@@ -1527,8 +1527,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "",
-    "_N$string": "",
+    "_string": "出售金币",
+    "_N$string": "出售金币",
     "_fontSize": 25,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1549,7 +1549,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "531QIUvtRPOrque+izcNn/",
     "sync": false
@@ -1668,7 +1668,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "f3uDz9tnVL26hwy8acXQ27",
     "sync": false
@@ -1757,6 +1757,9 @@
     "publicAlert": {
       "__uuid__": "70c716e1-340b-4207-a04e-f11d431ff72a"
     },
+    "SaleGold": {
+      "__uuid__": "3a3969e4-3339-48b4-84c8-644b6ac58136"
+    },
     "amountInput": {
       "__id__": 16
     },
@@ -1775,7 +1778,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "fileId": "51Zj7LqD1BZ5cywVxEMRLl",
     "sync": false

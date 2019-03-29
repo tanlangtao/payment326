@@ -2742,8 +2742,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "买卖金币",
-    "_N$string": "买卖金币",
+    "_string": "出售金币",
+    "_N$string": "出售金币",
     "_fontSize": 25,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -2971,6 +2971,9 @@
     },
     "publicAlert": {
       "__uuid__": "70c716e1-340b-4207-a04e-f11d431ff72a"
+    },
+    "SaleGold": {
+      "__uuid__": "3a3969e4-3339-48b4-84c8-644b6ac58136"
     },
     "amountInput": {
       "__id__": 49
