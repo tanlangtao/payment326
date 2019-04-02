@@ -72,7 +72,7 @@ export default class NewClass extends cc.Component {
         fetch(url,{
             method:'POST',
             body:this.FormData
-        }).then((data)=>data.json()).then((data)=>{
+    }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
                 this.parentComponent.fetchIndex();
                 this.parentComponent.showAlert('操作成功！')

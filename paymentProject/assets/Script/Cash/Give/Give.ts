@@ -27,17 +27,14 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     TestPasswordAlert : cc.Prefab =null;
 
-    @property(cc.Prefab)
-    RecoveryGold : cc.Prefab =null;
-
     @property(cc.Label)
-    amountLabel: cc.Label = null;
+    goldLabel: cc.Label = null;
+
+    @property(cc.EditBox)
+    idInput: cc.EditBox = null;
 
     @property(cc.EditBox)
     amountInput: cc.EditBox = null;
-
-    @property(cc.EditBox)
-    scaleInput: cc.EditBox = null;
 
     @property(cc.Label)
     czArea: cc.Label = null;
@@ -89,8 +86,8 @@ export default class NewClass extends cc.Component {
 
     init(){
         var data = this.data.data;
-        this.amountLabel.string = this.config.toDecimal(data.game_gold);
-        this.czArea.string = `充值范围:(${data.withdraw_min_amount} - ${data.withdraw_max_amount})`;
+        this.goldLabel.string = this.config.toDecimal(data.game_gold);
+        this.czArea.string = `赠送范围:(${data.withdraw_min_amount} - ${data.withdraw_max_amount})`;
         this.passworldLabel.string = data.is_password == 1 ? '已设置' : '未设置';
         this.btn1.string = data.is_password == 1 ? '去修改' : '去设置';
     }
@@ -119,20 +116,19 @@ export default class NewClass extends cc.Component {
     public getPublicInput2(){
         var PublicInputAlert = cc.instantiate(this.PublicInputAlert);
         var canvas = cc.find('Canvas');
-        this.scaleInput.node.on('editing-did-began',(e)=>{
+        this.idInput.node.on('editing-did-began',(e)=>{
             canvas.addChild(PublicInputAlert);
             PublicInputAlert.getComponent('PublicInputAlert').init({
                 text:e.string,
-                input:this.scaleInput
+                input:this.idInput
             })
         })
-        this.scaleInput.node.on('text-changed',(e)=>{
-            //验证input,可以输入一位小数
-            let reg = /^\d{0,8}\.{0,1}(\d{0,1})?$/;
-            this.scaleInput.string = !reg.test(e.string) ? '' :e.string ;
+        this.idInput.node.on('text-changed',(e)=>{
+            //验证input 不能以0开头的整数
+            this.idInput.string = e.string.replace(/[^\d]/g,'').replace(/^0{1,}/g,'');
             PublicInputAlert.getComponent('PublicInputAlert').init({
                 text:e.string,
-                input:this.scaleInput
+                input:this.idInput
             })
         })
     }
@@ -155,14 +151,14 @@ export default class NewClass extends cc.Component {
             type : type
         })
     }
-    //验证密码回调type=3
-    public fetchRgDh(pay_password){
+    //验证密码回调type=5
+    public fetchGive(pay_password){
         var url = `${this.UrlData.host}/api/with_draw/applyWithDraw`;
         this.FormData= new FormData();
         this.FormData.append('user_id',this.UrlData.user_id)
         this.FormData.append('user_name',decodeURI(this.UrlData.user_name))
         this.FormData.append('amount',this.amountInput.string)
-        this.FormData.append('handling_fee',this.scaleInput.string)
+        this.FormData.append('handling_fee',this.idInput.string)
         this.FormData.append('pay_password',pay_password)
         this.FormData.append('client',this.UrlData.client)
         this.FormData.append('proxy_user_id',this.UrlData.proxy_user_id)
@@ -203,37 +199,27 @@ export default class NewClass extends cc.Component {
         this.amountInput.string = '';
     }
 
-    deleteScale() {
-        this.scaleInput.string = '';
+    deleteId() {
+        this.idInput.string = '';
     }
 
-    recoveryClick(){
-        var node = cc.instantiate(this.RecoveryGold);
-        var content = cc.find('Canvas/Cash/Content');
-        content.addChild(node);
-    }
     onClick(){
         var amount = Number(this.amountInput.string);
-        var scale = Number(this.scaleInput.string);
         var minAmount = Number(this.data.data.withdraw_min_amount);
         var maxAmount = Number(this.data.data.withdraw_max_amount);
 
         if(this.data.data.is_password == 0){
             this.showAlert('请先设置资金密码!')
+        }else if(this.idInput.string ==''){
+            this.showAlert('赠送ID不能为空！')
         }else if(this.amountInput.string == ''){
-            this.showAlert('兑换金额不能为空！')
-        }else if(this.scaleInput.string ==''){
-            this.showAlert('兑换手续费不能为空！')
+            this.showAlert('赠送金额不能为空！')
         }else if(amount % minAmount != 0){
-            this.showAlert(`兑换金额必须是${minAmount}的倍数!`)
+            this.showAlert(`赠送金额必须是${minAmount}的倍数!`)
         }else if(amount < minAmount || amount >maxAmount){
-            this.showAlert('超出兑换范围!')
-        }else if(scale < 0.1 ){
-            this.showAlert('手续费不能小于等于0!')
-        }else if(scale > 99.9 ){
-            this.showAlert('手续费不能大于100%!')
+            this.showAlert('超出赠送范围!')
         }else{
-            this.showTestPassword(3);
+            this.showTestPassword(5);
         }
     }
     // update (dt) {}

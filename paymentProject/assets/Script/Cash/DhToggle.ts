@@ -22,6 +22,8 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     RgDh : cc.Prefab = null;
 
+    @property(cc.Prefab)
+    Give : cc.Prefab = null;
 
     public init(data){
         this.label.string =data.text;
@@ -42,6 +44,8 @@ export default class NewClass extends cc.Component {
             var node = cc.instantiate(this.RgDh);
         }else if(this.label.string == '兑换'){
             var node = cc.instantiate(this.Dh);
+        }else if(this.label.string == '赠送'){
+            var node = cc.instantiate(this.Give);
         }
         content.removeAllChildren();
         content.addChild(node);

@@ -56,12 +56,13 @@ export default class NewClass extends cc.Component {
     }
 
     public fetchIndex(){
-        var url = `${this.UrlData.host}/api/order/payOrderList?user_id=${this.UrlData.user_id}&token=${this.token}&order_status=${this.order_status}&page=${this.page}&page_set=8`;
+        var url = `${this.UrlData.host}/api/sell_gold/sellGoldHistory?user_id=${this.UrlData.user_id}&token=${this.token}&page=${this.page}&page_set=8`;
         fetch(url,{
             method:'get'
         }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
                 this.results = data;
+                cc.log(data)
                 this.pageLabel.string = `${this.page} / ${data.data.total_page == 0 ? '1' : data.data.total_page}`;
                 var listArr = data.data.list;
                 for(var i = 0; i < listArr.length; i++){
@@ -69,11 +70,12 @@ export default class NewClass extends cc.Component {
                     var node = cc.instantiate(this.ListItem);
                     this.List.addChild(node);
                     node.getComponent('SaleGoldHistoryItem').init({
-                        amount : data.amount,
+                        created_at : data.created_at,
+                        gold : data.gold,
+                        down_at : data.down_at,
+                        last_gold : data.last_gold,
+                        traded_gold : data.traded_gold,
                         status : data.status,
-                        type : data.type,
-                        firstTime : data.created_at,
-                        lastTime : data.arrival_at,
                         results:data
                     })
                 }
@@ -84,7 +86,7 @@ export default class NewClass extends cc.Component {
     }
 
     public addNavToggle(){
-        var arr = ['全部','审核中','挂单中','已拒绝'];
+        var arr = ['全部'];
         for(let i:number = 0; i< arr.length; i++){
             var node = cc.instantiate(this.NavToggle);
             this.ToggleContainer.addChild(node);

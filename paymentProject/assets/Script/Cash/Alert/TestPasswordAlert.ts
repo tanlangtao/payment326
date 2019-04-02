@@ -68,6 +68,7 @@ export default class NewClass extends cc.Component {
                 // type=1,弹出绑定帐户
                 // type =2 , 确认兑换
                 // type =3 , 申请人工兑换
+                // type =4 , 确认出售金币
                 if(this.type == 1){
                     var self = this;
                     var timer = setTimeout(()=>{
@@ -78,6 +79,8 @@ export default class NewClass extends cc.Component {
                     this.parentComponent.fetchwithDrawApply(this.passwordInput.string);
                 }else if(this.type == 3){
                     this.parentComponent.fetchRgDh();
+                }else if(this.type == 4){
+                    this.parentComponent.fetchSell_gold();
                 }
             }else{
                 this.parentComponent.showAlert(data.msg)

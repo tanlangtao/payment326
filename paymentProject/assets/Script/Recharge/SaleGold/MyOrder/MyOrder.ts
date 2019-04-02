@@ -58,7 +58,7 @@ export default class NewClass extends cc.Component {
         this.UrlData = this.config.getUrlData();
         this.token = this.config.token;
 
-        this.data = ['全部','已完成','未完成'];
+        this.data = ['全部','未完成','已完成'];
 
         this.initRender();
 
@@ -91,7 +91,7 @@ export default class NewClass extends cc.Component {
 
     public fetchIndex() {
         this.pageLabel.string = `${this.page} / 10`;
-        var url = `${this.UrlData.host}/api/with_draw/index?user_id=${this.UrlData.user_id}&withdraw_type=${this.current}&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/order/orderList?replace_id=${this.UrlData.user_id}&user_id=${this.IdInput.string}&order_status=${this.current}&token=${this.token}`;
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {

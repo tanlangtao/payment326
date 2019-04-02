@@ -73,7 +73,7 @@ export default class NewClass extends cc.Component {
         })
     }
     public addNavToggle(){
-        var arr = ['人工兑换','兑换']
+        var arr = ['人工兑换','兑换','赠送']
         for(let i:number = 0; i< arr.length; i++){
             var node = cc.instantiate(this.NavToggle);
             this.ToggleContainer.addChild(node);
