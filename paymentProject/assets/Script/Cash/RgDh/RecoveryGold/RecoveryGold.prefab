@@ -279,8 +279,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -335.9999999999999,
-      "y": 175,
+      "x": -397,
+      "y": 206,
       "z": 0
     },
     "_scale": {
@@ -3281,8 +3281,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": true,
-    "_string": "请输入手续费",
-    "_N$string": "请输入手续费",
+    "_string": "请输入比例",
+    "_N$string": "请输入比例",
     "_fontSize": 20,
     "_lineHeight": 30,
     "_enableWrapText": true,
@@ -5358,11 +5358,14 @@
     "TestPasswordAlert": {
       "__uuid__": "ea8fe5b1-5d18-47ce-99c5-d0dceb6ee576"
     },
-    "SaleGoldHistory": {
-      "__uuid__": "7038d568-23fb-44f2-9039-c0713412a378"
+    "recoveryHistory": {
+      "__uuid__": "7e622af4-694a-40c9-ba01-d6a1c01c9789"
     },
     "MyOrder": {
       "__uuid__": "f129b452-5cd9-4a78-a3da-d7aeeb7d0648"
+    },
+    "RgDh": {
+      "__uuid__": "61238624-0cc8-4702-b51c-c1581808d052"
     },
     "saleGoldLabel": {
       "__id__": 35

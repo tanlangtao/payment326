@@ -26,10 +26,13 @@ export default class NewClass extends cc.Component {
     TestPasswordAlert: cc.Prefab = null;
 
     @property(cc.Prefab)
-    SaleGoldHistory: cc.Prefab = null;
+    recoveryHistory: cc.Prefab = null;
 
     @property(cc.Prefab)
     MyOrder: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    RgDh: cc.Prefab = null;
 
     @property(cc.Label)
     saleGoldLabel: cc.Label = null;
@@ -263,6 +266,9 @@ export default class NewClass extends cc.Component {
 
     removeSelf() {
         this.node.removeFromParent();
+        let node = cc.instantiate(this.RgDh);
+        let content = cc.find('Canvas/Cash/Content');
+        content.addChild(node);
     }
 
     setPassword() {
@@ -273,9 +279,10 @@ export default class NewClass extends cc.Component {
     }
 
     historyClick() {
-        let node = cc.instantiate(this.SaleGoldHistory);
-        let canvas = cc.find('Canvas');
-        canvas.addChild(node);
+        let node = cc.instantiate(this.recoveryHistory);
+        let content = cc.find('Canvas/Cash/Content');
+        content.removeAllChildren();
+        content.addChild(node);
     }
 
     onClick() {

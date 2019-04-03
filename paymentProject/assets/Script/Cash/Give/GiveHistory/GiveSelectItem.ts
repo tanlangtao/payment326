@@ -17,36 +17,25 @@ export default class NewClass extends cc.Component {
     label: cc.Label = null;
 
     @property
-    index = null;
-    parentComponet : any = ''
-
-    public init(data){
-        this.label.string =data.text;
-        this.index = data.index;
-        this.parentComponet = data.parentComponet
-    }
+    parentComponent = null;
+    index = 0;
     // LIFE-CYCLE CALLBACKS:
-
-    onLoad () {
-        
+    public init(data){
+        this.label.string = data.text;
+        this.parentComponent = data.parentComponent;
+        this.index = data.index;
     }
+    // onLoad () {}
 
     start () {
 
     }
 
     onClick(){
-        if(this.index == 0){
-            this.parentComponet.order_status = 0;
-        }else if(this.index == 1){
-            this.parentComponet.order_status = 6;
-        }else if(this.index == 2){
-            this.parentComponet.order_status = 1;
-        }else if(this.index == 3){
-            this.parentComponet.order_status = 4;
-        }
-        this.parentComponet.page = 1;
-        this.parentComponet.updataList();
+        this.parentComponent.current = this.index;
+        this.parentComponent.showSelect = false;
+        this.parentComponent.selectContent.removeAllChildren();
+        this.parentComponent.initRender();
     }
     // update (dt) {}
 }

@@ -31,6 +31,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     MyOrder: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    Dc: cc.Prefab = null;
+
     @property(cc.Label)
     statusLabel: cc.Label = null;
 
@@ -131,7 +134,6 @@ export default class NewClass extends cc.Component {
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
                 this.results = data;
-                cc.log(data);
                 this.init();
             } else {
 
@@ -188,7 +190,6 @@ export default class NewClass extends cc.Component {
         this.passwordLabel.string = data.is_password == 0 ? '未设置' : '已设置';
         //设置密码按钮是否启用
         this.btn1.getComponent(cc.Button).interactable = data.is_password == 0 ? true :false;
-        console.log(data.is_password == 0)
         // 出售范围
         this.czArea.string = `出售范围(${data.min_amount}-${data.max_amount})`;
     }
@@ -258,7 +259,7 @@ export default class NewClass extends cc.Component {
     }
 
     //验证密码回调type=4
-    public fetchSell_gold(pay_password) {
+    public fetchSell_gold() {
         var url = `${this.UrlData.host}/api/sell_gold/submitSellGoldInfo`;
         this.FormData = new FormData();
         this.FormData.append('user_id', this.UrlData.user_id);
@@ -322,6 +323,9 @@ export default class NewClass extends cc.Component {
 
     removeSelf() {
         this.node.removeFromParent();
+        let node = cc.instantiate(this.Dc);
+        let content = cc.find('Canvas/Recharge/Content');
+        content.addChild(node);
     }
 
     setPassword() {
@@ -335,8 +339,9 @@ export default class NewClass extends cc.Component {
 
     historyClick() {
         let node = cc.instantiate(this.SaleGoldHistory);
-        let canvas = cc.find('Canvas');
-        canvas.addChild(node);
+        let content = cc.find('Canvas/Recharge/Content');
+        content.removeAllChildren();
+        content.addChild(node);
     }
 
     onClick() {
@@ -358,7 +363,8 @@ export default class NewClass extends cc.Component {
         }else if (this.ContactInput.string == '') {
             this.showAlert('请填写联系方式！')
         }else{
-            this.showTestPassword(4);
+            // this.showTestPassword(4);
+            this.fetchSell_gold()
         }
     }
 

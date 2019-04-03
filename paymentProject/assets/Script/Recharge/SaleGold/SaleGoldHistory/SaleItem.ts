@@ -7,26 +7,29 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-import Config from "../../../../Config"
+import Config from "../../../Config";
+
 const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class NewClass extends cc.Component {
+    @property(cc.Label)
+    created_atLabel: cc.Label = null;
 
     @property(cc.Label)
-    amountLabel: cc.Label = null;
+    goldLabel: cc.Label = null;
+
+    @property(cc.Label)
+    down_atLabel: cc.Label = null;
+
+    @property(cc.Label)
+    last_goldLabel: cc.Label = null;
+
+    @property(cc.Label)
+    consume_goldLabel: cc.Label = null;
 
     @property(cc.Label)
     statusLabel: cc.Label = null;
-
-    @property(cc.Label)
-    typeLabel: cc.Label = null;
-
-    @property(cc.Label)
-    firstTimeLabel: cc.Label = null;
-
-    @property(cc.Label)
-    lastTimeLabel: cc.Label = null;
 
     @property
     public results = {};
@@ -37,12 +40,12 @@ export default class NewClass extends cc.Component {
     }
 
     public init(data){
-        this.amountLabel.string = this.config.toDecimal(data.amount);
-        this.statusLabel.string = data.status ==1 ?'已完成' :(data.status == 3 ? '已撤销' : '未完成' );
-        this.typeLabel.string = data.type == 1 ? '支付宝充值' :(data.type == 2 ? '银行卡转账' :'人工代充值');
-        this.firstTimeLabel.string = this.config.getTime(data.firstTime);
-        this.lastTimeLabel.string = data.lastTime == 0 ? '无' : this.config.getTime(data.lastTime);
-        this.results = data.results;
+        this.created_atLabel.string =  this.config.getTime(data.created_at);
+        this.goldLabel.string = this.config.toDecimal(data.gold);
+        this.down_atLabel.string = data.down_at==0?"无": this.config.getTime(data.down_at);
+        this.last_goldLabel.string = this.config.toDecimal(data.last_gold);
+        this.consume_goldLabel.string = this.config.toDecimal(data.consume_gold);
+        this.statusLabel.string = data.status == 1|| data.status == 2 ? '审核中' : (data.status == 4 ?'挂单中' :'已拒绝')
     }
 
     start () {
@@ -50,6 +53,7 @@ export default class NewClass extends cc.Component {
     }
 
     onClick(){
+
     }
     // update (dt) {}
 }

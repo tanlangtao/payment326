@@ -27,6 +27,12 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     TestPasswordAlert : cc.Prefab =null;
 
+    @property(cc.Prefab)
+    GiveHistory : cc.Prefab =null;
+
+    @property(cc.Prefab)
+    ReceiveHistory : cc.Prefab =null;
+
     @property(cc.Label)
     goldLabel: cc.Label = null;
 
@@ -91,7 +97,6 @@ export default class NewClass extends cc.Component {
         this.passworldLabel.string = data.is_password == 1 ? '已设置' : '未设置';
         this.btn1.string = data.is_password == 1 ? '去修改' : '去设置';
     }
-
 
     public getPublicInput(){
         var PublicInputAlert = cc.instantiate(this.PublicInputAlert);
@@ -193,6 +198,17 @@ export default class NewClass extends cc.Component {
                 parentComponent:this
             })
         }
+    }
+    giveHistoryClick(){
+        let node = cc.instantiate(this.GiveHistory);
+        let content = cc.find('Canvas/Cash/Content');
+        content.addChild(node);
+    }
+
+    receiveHistoryClick(){
+        let node = cc.instantiate(this.ReceiveHistory);
+        let content = cc.find('Canvas/Cash/Content');
+        content.addChild(node);
     }
 
     deleteAmount(){

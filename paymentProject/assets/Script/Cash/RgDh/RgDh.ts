@@ -210,6 +210,7 @@ export default class NewClass extends cc.Component {
     recoveryClick(){
         var node = cc.instantiate(this.RecoveryGold);
         var content = cc.find('Canvas/Cash/Content');
+        content.removeAllChildren();
         content.addChild(node);
     }
     onClick(){

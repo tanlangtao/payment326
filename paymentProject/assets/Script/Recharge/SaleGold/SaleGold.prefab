@@ -279,8 +279,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -335.9999999999999,
-      "y": 175,
+      "x": -397,
+      "y": 206,
       "z": 0
     },
     "_scale": {
@@ -5142,10 +5142,13 @@
       "__uuid__": "ea8fe5b1-5d18-47ce-99c5-d0dceb6ee576"
     },
     "SaleGoldHistory": {
-      "__uuid__": "709dc1c9-d986-4fca-b43b-0b229607d803"
+      "__uuid__": "8818df4b-51aa-46bb-82a0-16b1fcd57408"
     },
     "MyOrder": {
       "__uuid__": "b8ea1a91-d5f6-4a0d-b673-6f7e25bf8baf"
+    },
+    "Dc": {
+      "__uuid__": "ec6a85e0-9f8e-4498-a1d4-67b5d8c019ac"
     },
     "statusLabel": {
       "__id__": 12

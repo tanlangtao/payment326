@@ -68,7 +68,7 @@ export default class NewClass extends cc.Component {
 
     }
     public fetchZfb(){
-        var url = `${this.UrlData.host}/api/payment/guduPayPaymentIndex&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/payment/bankCardTransferPayIndex&token=${this.token}`;
         fetch(url,{
             method:'get'
         }).then((data)=>data.json()).then((data)=>{
@@ -82,8 +82,8 @@ export default class NewClass extends cc.Component {
     }
 
     public initRender(){
-        var span_amount = this.results.gudu_random_amount;
-        this.czArea.string = `充值范围:(${this.results.gudu_pay_min_amount}-${this.results.gudu_pay_max_amount})`
+        var span_amount = this.results.random_amount;
+        this.czArea.string = `充值范围:(${this.results.pay_min_amount}-${this.results.pay_max_amount})`
         this.gold1.string = span_amount[0];
         this.gold2.string = span_amount[1];
         this.gold3.string = span_amount[2];
@@ -137,7 +137,7 @@ export default class NewClass extends cc.Component {
     }
 
     fetchOrder(){
-        var url = `${this.UrlData.host}/api/payment/transferpayment`;
+        var url = `${this.UrlData.host}/api/payment/bankCardTransfer`;
         this.FormData = new FormData();
         this.FormData.append('user_id',this.UrlData.user_id)
         this.FormData.append('user_name',decodeURI(this.UrlData.user_name))

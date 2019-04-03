@@ -156,6 +156,7 @@ export default class NewClass extends cc.Component {
     btn2Click() {
         let node = cc.instantiate(this.SaleGold);
         var content = cc.find('Canvas/Recharge/Content');
+        content.removeAllChildren();
         content.addChild(node);
     }
 

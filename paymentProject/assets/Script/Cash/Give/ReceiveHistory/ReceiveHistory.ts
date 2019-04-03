@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-import Config from "../../../../Config";
+import Config from "../../../Config";
 
 const {ccclass, property} = cc._decorator;
 
@@ -20,11 +20,10 @@ export default class NewClass extends cc.Component {
     publicAlert: cc.Prefab = null;
 
     @property(cc.Prefab)
-    SaleGold: cc.Prefab = null;
+    GiveHistory: cc.Prefab = null;
 
     @property(cc.Prefab)
-    RgDh: cc.Prefab = null;
-
+    ReceiveItem: cc.Prefab = null;
 
     @property(cc.EditBox)
     IdInput: cc.EditBox = null;
@@ -42,12 +41,12 @@ export default class NewClass extends cc.Component {
     selectContent: cc.Node = null;
 
     @property(cc.Node)
-    MyOrderList: cc.Node = null;
+    ReceiveHistoryList: cc.Node = null;
 
     @property
     public showSelect = false;
     public results = null;
-    public current = 1;
+    public current = 0;
     public config = null;
     public UrlData: any = [];
     public token: string = '';
@@ -62,7 +61,7 @@ export default class NewClass extends cc.Component {
         this.UrlData = this.config.getUrlData();
         this.token = this.config.token;
 
-        this.data = ['全部','已完成','未完成'];
+        this.data = ['全部','未完成','已完成'];
 
         this.initRender();
 
@@ -80,7 +79,7 @@ export default class NewClass extends cc.Component {
             for (var i = 0; i < this.data.length; i++) {
                 var node = cc.instantiate(this.SelectItem);
                 this.selectContent.addChild(node);
-                node.getComponent('RecoveryGoldSelectItem').init({
+                node.getComponent('GiveSelectItem').init({
                     text: this.data[i],
                     parentComponent: this,
                     index: i
@@ -141,16 +140,16 @@ export default class NewClass extends cc.Component {
         node.getComponent('PublicAlert').init(data);
     }
 
-    saleGoldClick() {
+    GiveClick() {
         this.node.removeFromParent();
-        let node = cc.instantiate(this.SaleGold);
+        let node = cc.instantiate(this.GiveHistory);
         let content = cc.find('Canvas/Cash/Content');
         content.addChild(node);
 
     }
 
     updataList(){
-        this.MyOrderList.removeAllChildren();
+        this.ReceiveHistoryList.removeAllChildren();
         this.fetchIndex();
     }
 
@@ -174,9 +173,6 @@ export default class NewClass extends cc.Component {
 
     removeSelf() {
         this.node.removeFromParent();
-        let node = cc.instantiate(this.RgDh);
-        let content = cc.find('Canvas/Cash/Content');
-        content.addChild(node);
     }
 
     onClick() {
