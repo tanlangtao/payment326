@@ -54,7 +54,7 @@ export default class NewClass extends cc.Component {
         }else if(this.passwordInput.string.length < 6 || this.passwordInput.string.length > 10){
             this.showAlert('请设置6-10位新密码！')
         }else{
-            this.node.removeFromParent();
+            this.node.destroy();
             this.fetchcheckPassword();
         }
     }
@@ -118,7 +118,7 @@ export default class NewClass extends cc.Component {
     }
     
     removeSelf(){
-        this.node.removeFromParent();
+        this.node.destroy();
     }
     // update (dt) {}
 }

@@ -70,7 +70,7 @@ export default class NewClass extends cc.Component {
             this.showAlert('请选择开户行！')
         }else{
             this.fetchBindAccountPay();
-            this.node.removeFromParent();
+            this.node.destroy();
         }
     }
 
@@ -177,7 +177,7 @@ export default class NewClass extends cc.Component {
     }
     
     removeSelf(){
-        this.node.removeFromParent();
+        this.node.destroy();
     }
     // update (dt) {}
 }

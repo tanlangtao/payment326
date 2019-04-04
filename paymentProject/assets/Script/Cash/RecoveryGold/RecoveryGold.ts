@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-import Config from "../../../Config";
+import Config from "../../Config";
 
 const {ccclass, property} = cc._decorator;
 
@@ -115,14 +115,14 @@ export default class NewClass extends cc.Component {
     }
 
     public fetchIndex() {
-        var url = `${this.UrlData.host}/api/with_draw/index?user_id=${this.UrlData.user_id}&withdraw_type=${this.current}&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/recycle_gold/index?user_id=${this.UrlData.user_id}&token=${this.token}`;
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
                 this.results = data;
                 cc.log(data);
-                this.init();
+                // this.init();
             } else {
 
             }
@@ -257,7 +257,7 @@ export default class NewClass extends cc.Component {
     }
 
     myOrderClick() {
-        this.node.removeFromParent();
+        this.node.destroy();
         let node = cc.instantiate(this.MyOrder);
         let content = cc.find('Canvas/Cash/Content');
         content.addChild(node);
@@ -265,7 +265,7 @@ export default class NewClass extends cc.Component {
     }
 
     removeSelf() {
-        this.node.removeFromParent();
+        this.node.destroy();
         let node = cc.instantiate(this.RgDh);
         let content = cc.find('Canvas/Cash/Content');
         content.addChild(node);

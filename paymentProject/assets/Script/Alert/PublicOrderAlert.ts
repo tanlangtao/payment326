@@ -75,7 +75,7 @@ export default class NewClass extends cc.Component {
     }
 
     removeSelf(){
-        this.node.removeFromParent()
+        this.node.destroy()
     }
 
     onClick(){

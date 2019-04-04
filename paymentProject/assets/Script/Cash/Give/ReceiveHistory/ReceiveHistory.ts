@@ -141,7 +141,7 @@ export default class NewClass extends cc.Component {
     }
 
     GiveClick() {
-        this.node.removeFromParent();
+        this.node.destroy();
         let node = cc.instantiate(this.GiveHistory);
         let content = cc.find('Canvas/Cash/Content');
         content.addChild(node);
@@ -172,7 +172,7 @@ export default class NewClass extends cc.Component {
     }
 
     removeSelf() {
-        this.node.removeFromParent();
+        this.node.destroy();
     }
 
     onClick() {

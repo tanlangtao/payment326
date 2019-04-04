@@ -40,8 +40,8 @@ export default class NewClass extends cc.Component {
         var config = new Config();
         this.UrlData =config.getUrlData();
         this.token = config.token;
-        //请求支付宝
-        this.fetchZfb()
+
+        this.addNavToggle()
     }
 
     start () {
@@ -58,20 +58,6 @@ export default class NewClass extends cc.Component {
         canvas.addChild(node);
     }
 
-    public fetchZfb(){
-        var url = `${this.UrlData.host}/api/payment/aliPayPaymentIndex?user_id=${this.UrlData.user_id}&token=${this.token}`;
-        fetch(url,{
-            method:'get'
-        }).then((data)=>data.json()).then((data)=>{
-            if(data.status == 0){
-                this.zfbResults = data;
-                //动态渲染左侧导航
-                this.addNavToggle()
-            }else{
-                
-            }
-        })
-    }
     public addNavToggle(){
         var arr = ['人工兑换','兑换','赠送']
         for(let i:number = 0; i< arr.length; i++){

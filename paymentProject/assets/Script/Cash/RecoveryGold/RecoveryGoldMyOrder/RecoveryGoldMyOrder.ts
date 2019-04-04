@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-import Config from "../../../../Config";
+import Config from "../../../Config";
 
 const {ccclass, property} = cc._decorator;
 
@@ -142,7 +142,7 @@ export default class NewClass extends cc.Component {
     }
 
     saleGoldClick() {
-        this.node.removeFromParent();
+        this.node.destroy();
         let node = cc.instantiate(this.SaleGold);
         let content = cc.find('Canvas/Cash/Content');
         content.addChild(node);
@@ -173,7 +173,7 @@ export default class NewClass extends cc.Component {
     }
 
     removeSelf() {
-        this.node.removeFromParent();
+        this.node.destroy();
         let node = cc.instantiate(this.RgDh);
         let content = cc.find('Canvas/Cash/Content');
         content.addChild(node);

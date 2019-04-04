@@ -63,7 +63,7 @@ export default class NewClass extends cc.Component {
             this.showAlert('两次密码输入不一致！')
         }else{
             this.fetchBindAccountPay();
-            this.node.removeFromParent();
+            this.node.destroy();
         }
     }
 
@@ -132,7 +132,7 @@ export default class NewClass extends cc.Component {
     }
     
     removeSelf(){
-        this.node.removeFromParent();
+        this.node.destroy();
     }
     // update (dt) {}
 }
