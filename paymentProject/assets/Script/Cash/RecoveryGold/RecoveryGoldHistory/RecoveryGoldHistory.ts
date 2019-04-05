@@ -52,20 +52,29 @@ export default class NewClass extends cc.Component {
 
 
     public fetchIndex() {
-        this.pageLabel.string = `${this.page} / 10`;
-        var url = `${this.UrlData.host}/api/sell_gold/mySellGoldOrderList?&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/recycle_gold/recycleGoldHistory?user_id=${this.UrlData.user_id}&
+        page=${this.page}&page_set=8&token=${this.token}`;
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
                 this.results = data;
-                cc.log(data);
+                this.init();
             } else {
 
             }
         })
     }
 
+    init(){
+        for(let i = 0; i<this.results.data.list.length; i++){
+            var data = this.results.data.list[i];
+            let node = cc.instantiate(this.RecoveryItem);
+            this.RecoveryGoldList.addChild(node);
+            node.getComponent('RecoveryItem').init(data)
+        }
+        this.pageLabel.string = `${this.page} / ${this.results.data.total_page == 0 ? '1' :this.results.data.total_page}`;
+    }
 
     public showAlert(data) {
         var node = cc.instantiate(this.publicAlert);
@@ -80,6 +89,7 @@ export default class NewClass extends cc.Component {
     }
 
     pageUp(){
+        var total_page = Number(this.results.data.total_page);
         if(this.page > 1){
             this.page = this.page - 1;
             this.updataList();
@@ -87,7 +97,8 @@ export default class NewClass extends cc.Component {
     }
 
     pageDown(){
-        if(this.page < 10){
+        var total_page = Number(this.results.data.total_page);
+        if(this.page < total_page){
             this.page = this.page + 1;
             this.updataList();
         }

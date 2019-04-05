@@ -124,7 +124,7 @@ export default class NewClass extends cc.Component {
     init(){
         var data = this.data.data;
         this.amountLabel.string = this.config.toDecimal(data.game_gold);
-        this.czArea.string = `充值范围:(${data.withdraw_min_amount} - ${data.withdraw_max_amount})`;
+        this.czArea.string = `兑换范围:(${data.withdraw_min_amount} - ${data.withdraw_max_amount})`;
         if(this.current == 1){
             this.accountLabel.string = data.is_bind == 1 ? this.config.testBankNum(data.alipay_account) :'未绑定';
         }else{

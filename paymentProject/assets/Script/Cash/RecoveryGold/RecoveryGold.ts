@@ -35,6 +35,9 @@ export default class NewClass extends cc.Component {
     RgDh: cc.Prefab = null;
 
     @property(cc.Label)
+    statusLabel: cc.Label = null;
+
+    @property(cc.Label)
     saleGoldLabel: cc.Label = null;
 
     @property(cc.Label)
@@ -43,14 +46,26 @@ export default class NewClass extends cc.Component {
     @property(cc.EditBox)
     amountInput: cc.EditBox = null;
 
+    @property(cc.Label)
+    amountLabel: cc.Label = null;
+
     @property(cc.EditBox)
     scaleInput: cc.EditBox = null;
+
+    @property(cc.Label)
+    scaleLabel: cc.Label = null;
 
     @property(cc.EditBox)
     ContactInput: cc.EditBox = null;
 
     @property(cc.Label)
+    contactLabel: cc.Label = null;
+
+    @property(cc.Label)
     czArea: cc.Label = null;
+
+    @property(cc.Label)
+    scaleArea: cc.Label = null;
 
     @property(cc.Label)
     selectLabel: cc.Label = null;
@@ -62,12 +77,13 @@ export default class NewClass extends cc.Component {
     selectContent: cc.Node = null;
 
     @property(cc.Node)
-    btn1: cc.Node = null;
+    applayBtn: cc.Node = null;
 
     @property
     showSelect = false;
     results = null;
-    current = 1;
+    current = 0;
+    action = 'add';
     public config = null;
     public UrlData: any = [];
     public token: string = '';
@@ -101,7 +117,7 @@ export default class NewClass extends cc.Component {
             for (var i = 0; i < this.data.length; i++) {
                 var node = cc.instantiate(this.SelectItem);
                 this.selectContent.addChild(node);
-                node.getComponent('GoldSelectItem').init({
+                node.getComponent('RecoveryGoldSelectItem').init({
                     text: this.data[i],
                     parentComponent: this,
                     index: i
@@ -122,7 +138,7 @@ export default class NewClass extends cc.Component {
             if (data.status == 0) {
                 this.results = data;
                 cc.log(data);
-                // this.init();
+                this.init();
             } else {
 
             }
@@ -130,6 +146,44 @@ export default class NewClass extends cc.Component {
     }
 
     init() {
+        this.applayBtn.children[0].getComponent(cc.Label).string = '申请回收';
+        this.restGoldLabel.string = this.results.data.game_gold;
+        this.czArea.string = `回收范围:(${this.results.data.min_amount}-${this.results.data.max_amount})`;
+        this.scaleArea.string = `%  (${this.config.toDecimal1(this.results.data.min_rate*100)}-${this.config.toDecimal1(this.results.data.max_rate*100)})`;
+        let data = this.results.data;
+        //is_apply为1,表示提交过回收订单
+        if (data.is_apply == 1) {
+            //提交方式改为编辑
+            this.action = 'edit';
+            let status = data.user_info.status;
+            //根据status判断界面显示
+            this.statusLabel.string = status == 1 ? "审核中" : (status == 2 ? '挂单中' : '');
+            this.saleGoldLabel.string = this.config.toDecimal(data.user_info.now_last_gold);
+            if(status == 1 || status == 2){
+
+                //禁用input输入
+                this.amountInput.node.active = false;
+                this.ContactInput.node.active = false;
+                this.scaleInput.node.active = false;
+                //设置出售金币额度的值
+                this.amountLabel.string = this.config.toDecimal(data.user_info.now_gold);
+                this.current = Number(data.user_info.contact_type) - 1;
+                this.selectLabel.string = this.data[this.current];
+                this.scaleLabel.string = this.config.toDecimal1(data.user_info.handling_fee*100);
+                this.contactLabel.string = data.user_info.contact_info;
+                if(status == 2){
+                    this.applayBtn.children[0].getComponent(cc.Label).string = '撤销回收';
+                }
+            }else {
+                this.amountInput.node.active = true;
+                this.ContactInput.node.active = true;
+                this.scaleInput.node.active = true;
+                this.amountLabel.string = '';
+                this.contactLabel.string = '';
+                this.scaleLabel.string = '';
+            }
+
+        }
     }
 
     //selectItem回调
@@ -216,7 +270,7 @@ export default class NewClass extends cc.Component {
     }
 
     deleteContact() {
-        this.amountInput.string = '';
+        this.ContactInput.string = '';
     }
 
     //验证密码
@@ -230,15 +284,17 @@ export default class NewClass extends cc.Component {
         })
     }
 
-    //验证密码回调type=3
-    public fetchwithDrawApply(pay_password) {
-        var url = `${this.UrlData.host}/api/with_draw/withDrawApply`;
+    //验证密码回调type=5
+    public fetchsubmitRecycleGoldInfo() {
+        var url = `${this.UrlData.host}/api/recycle_gold/submitRecycleGoldInfo`;
         this.FormData = new FormData();
         this.FormData.append('user_id', this.UrlData.user_id);
         this.FormData.append('user_name', decodeURI(this.UrlData.user_name));
-        this.FormData.append('amount', this.amountInput.string);
-        this.FormData.append('withdraw_type', `${this.current}`);
-        this.FormData.append('pay_password', pay_password);
+        this.FormData.append('gold', this.amountInput.string);
+        this.FormData.append('handling_fee', this.scaleInput.string);
+        this.FormData.append('contact_type', `${this.current+1}`);
+        this.FormData.append('contact_info', this.ContactInput.string);
+        this.FormData.append('action_type', this.action);
         this.FormData.append('client', this.UrlData.client);
         this.FormData.append('proxy_user_id', this.UrlData.proxy_user_id);
         this.FormData.append('proxy_name', decodeURI(this.UrlData.proxy_name));
@@ -249,7 +305,27 @@ export default class NewClass extends cc.Component {
             body: this.FormData
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
-                this.showAlert('申请成功！')
+                this.showAlert('申请成功！');
+                this.initRender();
+            } else {
+                this.showAlert(data.msg)
+            }
+        })
+    }
+
+    //撤销上架
+    public fetchDownRecycleGold() {
+        var url = `${this.UrlData.host}/api/recycle_gold/downRecycleGold`;
+        this.FormData = new FormData();
+        this.FormData.append('user_id', this.UrlData.user_id);
+        this.FormData.append('token', this.token);
+        fetch(url, {
+            method: 'POST',
+            body: this.FormData
+        }).then((data) => data.json()).then((data) => {
+            if (data.status == 0) {
+                this.showAlert('撤销成功！');
+                this.initRender()
             } else {
                 this.showAlert(data.msg)
             }
@@ -286,14 +362,29 @@ export default class NewClass extends cc.Component {
     }
 
     onClick() {
-        if (this.amountInput.string == '') {
-            this.showAlert('出售金币数量不能为空！')
+        var min_amount = Number(this.results.data.min_amount);
+        var max_amount = Number(this.results.data.max_amount);
+        var min_rate = Number(this.results.data.min_rate)*100;
+        var max_rate = Number(this.results.data.max_rate)*100;
+        var amount = Number(this.amountInput.string);
+        let scale = Number(this.scaleInput.string);
+        let status = this.results.data.is_apply == 0 ? 0 :this.results.data.user_info.status;
+        if (status == 1){
+            this.showAlert('请等待审核完成！')
+        }else if(status == 2){
+            this.fetchDownRecycleGold();
+        }else if (this.amountInput.string == '') {
+            this.showAlert('回收金币不能为空！')
         } else if (this.scaleInput.string == '') {
             this.showAlert('请填写回收手续费！')
         }else if (this.ContactInput.string == '') {
             this.showAlert('请填写联系方式！')
+        }else if(amount > max_amount || amount < min_amount){
+            this.showAlert('回收金币超出系统范围！')
+        }else if(scale > max_rate || scale < min_rate){
+            this.showAlert('手续费超出系统范围！')
         }else{
-            this.showTestPassword(3);
+            this.showTestPassword(5);
         }
     }
 

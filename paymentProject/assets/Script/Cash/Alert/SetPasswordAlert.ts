@@ -53,7 +53,7 @@ export default class NewClass extends cc.Component {
             this.showAlert('请设置6-10位新密码！')
         }else{
             this.fetchBindAccountPay();
-            this.node.destroy();
+            this.node.removeFromParent();
         }
     }
     // 绑定资金密码

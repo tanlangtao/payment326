@@ -158,6 +158,7 @@ export default class NewClass extends cc.Component {
         var content = cc.find('Canvas/Recharge/Content');
         content.removeAllChildren();
         content.addChild(node);
+
     }
 
     // update (dt) {}

@@ -70,7 +70,7 @@ export default class NewClass extends cc.Component {
             this.showAlert('请选择开户行！')
         }else{
             this.fetchBindAccountPay();
-            this.node.destroy();
+            this.node.removeFromParent();
         }
     }
 

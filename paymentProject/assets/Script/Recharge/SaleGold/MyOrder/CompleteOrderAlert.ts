@@ -43,7 +43,7 @@ export default class NewClass extends cc.Component {
 
     onClick(){
         this.fetchcompletedOrder();
-        this.node.destroy();
+        this.node.removeFromParent();
     }
 
     public fetchcompletedOrder() {

@@ -7,6 +7,8 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+import Config from "../../../Config";
+
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -27,20 +29,23 @@ export default class NewClass extends cc.Component {
     cancleAmountLabel: cc.Label = null;
 
     @property(cc.Label)
-    recoveryAmountLabel: cc.Label = null;
-
-    @property(cc.Label)
     statusLabel: cc.Label = null;
 
     @property
-    public results = {};
+    public results = null;
     public config = null;
-
     onLoad () {
+        this.config = new Config();
     }
 
     public init(data){
-
+        this.results = data;
+        this.created_atLabel.string = this.config.getTime(data.created_at);
+        this.amountLabel.string = this.config.toDecimal(data.gold);
+        this.handling_feeLabel.string = this.config.toDecimal1(data.handling_fee*100)+"%";
+        this.cancleTimeLabel.string = data.down_at == 0 ? '无': this.config.getTime(data.down_at);
+        this.cancleAmountLabel.string = data.status == 3 || data.status == 4 ?  this.config.toDecimal(data.last_gold):'无';
+        this.statusLabel.string = data.status == 1 ? "待审核"  : (data.status == 2 ? '挂单中':"已拒绝");
     }
 
     start () {

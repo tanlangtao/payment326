@@ -79,7 +79,6 @@ export default class NewClass extends cc.Component {
         }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
                 this.data = data;
-                cc.log(data)
                 this.init();
             }else{
 
@@ -90,7 +89,7 @@ export default class NewClass extends cc.Component {
     init(){
         var data = this.data.data;
         this.amountLabel.string = this.config.toDecimal(data.game_gold);
-        this.czArea.string = `充值范围:(${data.withdraw_min_amount} - ${data.withdraw_max_amount})`;
+        this.czArea.string = `兑换范围:(${data.withdraw_min_amount} - ${data.withdraw_max_amount})`;
         this.passworldLabel.string = data.is_password == 1 ? '已设置' : '未设置';
         this.btn1.string = data.is_password == 1 ? '去修改' : '去设置';
     }
@@ -188,7 +187,7 @@ export default class NewClass extends cc.Component {
             canvas.addChild(node);
             node.getComponent('ChangePasswordAlert').init({
                 parentComponent:this
-            })
+            });
         }else{
             var node = cc.instantiate(this.SetPasswordAlert);
             var canvas = cc.find('Canvas');
@@ -208,13 +207,19 @@ export default class NewClass extends cc.Component {
     }
 
     recoveryClick(){
-        var node = cc.instantiate(this.RecoveryGold);
-        var content = cc.find('Canvas/Cash/Content');
-        content.removeAllChildren();
-        content.addChild(node);
+        if(this.data.data.is_password == 0){
+            this.showAlert('请先设置资金密码！')
+        }else{
+            var node = cc.instantiate(this.RecoveryGold);
+            var content = cc.find('Canvas/Cash/Content');
+            content.removeAllChildren();
+            content.addChild(node);
+        }
+
     }
     onClick(){
         var amount = Number(this.amountInput.string);
+        var gold = Number(this.amountLabel.string);
         var scale = Number(this.scaleInput.string);
         var minAmount = Number(this.data.data.withdraw_min_amount);
         var maxAmount = Number(this.data.data.withdraw_max_amount);
@@ -225,6 +230,8 @@ export default class NewClass extends cc.Component {
             this.showAlert('兑换金额不能为空！')
         }else if(this.scaleInput.string ==''){
             this.showAlert('兑换手续费不能为空！')
+        }else if(amount > gold){
+            this.showAlert('兑换金额大于账户余额！')
         }else if(amount % minAmount != 0){
             this.showAlert(`兑换金额必须是${minAmount}的倍数!`)
         }else if(amount < minAmount || amount >maxAmount){

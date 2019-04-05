@@ -58,7 +58,7 @@ export default class NewClass extends cc.Component {
             this.showAlert('姓名和账户不能为空!')
         }else{
             this.fetchBindAccountPay();
-            this.node.destroy();
+            this.node.removeFromParent();
         }
     }
 

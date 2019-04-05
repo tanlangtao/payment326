@@ -142,7 +142,7 @@ export default class NewClass extends cc.Component {
     }
 
     init() {
-
+        this.applayBtn.children[0].getComponent(cc.Label).string = '申请上架';
         let data = this.results.data;
 
         //is_apply为1,表示提交过卖分
@@ -152,18 +152,7 @@ export default class NewClass extends cc.Component {
             let status = data.user_info.status;
             //根据status判断界面显示
             this.statusLabel.string = status == 1 || status == 2 ? "审核中" :(status == 4 ? '挂单中':'' );
-            if(status == 1|| status == 2){
-                this.saleGoldLabel.string = this.config.toDecimal(data.user_info.now_up_gold);
-                //禁用input输入
-                this.amountInput.node.active = false;
-                this.ContactInput.node.active = false;
-                //设置出售金币额度的值
-                this.amountLabel.string = this.config.toDecimal(data.user_info.now_up_gold);
-                this.current = Number(data.user_info.contact_type)-1;
-                this.selectLabel.string = this.data[this.current];
-                this.contactLabel.string = data.user_info.contact_info;
-                //status == 4,审核通过
-            }else if(status == 4){
+            if(status == 1|| status == 2 || status == 4){
                 this.saleGoldLabel.string = this.config.toDecimal(data.user_info.now_up_last_gold);
                 //禁用input输入
                 this.amountInput.node.active = false;
@@ -173,8 +162,10 @@ export default class NewClass extends cc.Component {
                 this.current = Number(data.user_info.contact_type)-1;
                 this.selectLabel.string = this.data[this.current];
                 this.contactLabel.string = data.user_info.contact_info;
-
-                this.applayBtn.children[0].getComponent(cc.Label).string = '撤销上架';
+                //status == 4,审核通过
+                if(status == 4){
+                    this.applayBtn.children[0].getComponent(cc.Label).string = '撤销上架';
+                }
             }else{
                 this.saleGoldLabel.string = this.config.toDecimal(data.user_info.now_up_last_gold);
                 this.amountInput.node.active = true;
@@ -278,7 +269,8 @@ export default class NewClass extends cc.Component {
             body: this.FormData
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
-                this.showAlert('申请成功！')
+                this.showAlert('申请成功！');
+                this.initRender();
             } else {
                 this.showAlert(data.msg)
             }

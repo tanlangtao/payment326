@@ -62,7 +62,7 @@ export default class NewClass extends cc.Component {
         this.UrlData = this.config.getUrlData();
         this.token = this.config.token;
 
-        this.data = ['全部','已完成','未完成'];
+        this.data = ['全部','未完成','已完成'];
 
         this.initRender();
 

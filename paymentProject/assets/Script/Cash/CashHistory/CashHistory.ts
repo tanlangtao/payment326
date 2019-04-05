@@ -56,7 +56,7 @@ export default class NewClass extends cc.Component {
     }
 
     public fetchIndex(){
-        var url = `${this.UrlData.host}/api/order/withDrawOrderList?user_id=${this.UrlData.user_id}&token=${this.token}&order_status=${this.order_status}&page=${this.page}&page_set=8`;
+        var url = `${this.UrlData.host}/api/with_draw/withDrawHistory?user_id=${this.UrlData.user_id}&token=${this.token}&order_status=${this.order_status}&page=${this.page}&page_set=8`;
         fetch(url,{
             method:'get'
         }).then((data)=>data.json()).then((data)=>{
