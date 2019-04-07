@@ -43,7 +43,7 @@ export default class NewClass extends cc.Component {
     orderBtn: cc.Node = null;
 
     @property(cc.Prefab)
-    publicOrderAlert: cc.Prefab = null;
+    CompleteDhOrderAlert: cc.Prefab = null;
 
     @property
     public results = {};
@@ -68,7 +68,7 @@ export default class NewClass extends cc.Component {
         // 当类型=赠送时，申请费率和实际费率均为0
         if(data.type == 4){
             this.handling_feeLabel.string = `${this.config.toDecimal1(data.handling_fee*100)}%`;
-            this.exchangeLabel.string  = `${this.config.toDecimal1(data.exchange*100)}%`;
+            this.exchangeLabel.string  = `${this.config.toDecimal1(data.replace_handling_fee*100)}%`;
         }else if(data.type == 5 || data.type == 6){
             this.handling_feeLabel.string = '0.0%';
             this.exchangeLabel.string  = '0.0%';
@@ -84,7 +84,7 @@ export default class NewClass extends cc.Component {
         this.arrival_atLabel.string = data.arrival_at == 0 ? '无' : this.config.getTime(data.arrival_at);
         this.admin_remarkLabel.string = `${!data.user_remark ?"" :data.user_remark }`;
         this.results = data.results;
-        data.status == 7? '' : this.orderBtn.removeFromParent();
+        // data.status == 7? '' : this.orderBtn.removeFromParent();
     }
 
     start () {
@@ -92,13 +92,11 @@ export default class NewClass extends cc.Component {
     }
 
     onClick(){
-        var node = cc.instantiate(this.publicOrderAlert);
+        var node = cc.instantiate(this.CompleteDhOrderAlert);
         var canvas = cc.find('Canvas');
         canvas.addChild(node);
-        var data = {
-            data : this.results
-        }
-        node.getComponent('PublicOrderAlert').init(data)
+        var data=this.results;
+        node.getComponent('CompleteDhOrderAlert').init(data)
     }
     // update (dt) {}
 }

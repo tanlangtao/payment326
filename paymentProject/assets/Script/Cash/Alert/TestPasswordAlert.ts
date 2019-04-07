@@ -70,6 +70,7 @@ export default class NewClass extends cc.Component {
                 // type =3 , 申请人工兑换
                 // type =4 , 确认出售金币
                 // type =5 , 确认回收金币
+                // type =6 , 确认赠送
                 if(this.type == 1){
                     var self = this;
                     var timer = setTimeout(()=>{
@@ -84,6 +85,8 @@ export default class NewClass extends cc.Component {
                     this.parentComponent.fetchSell_gold();
                 }else if(this.type == 5){
                     this.parentComponent.fetchsubmitRecycleGoldInfo();
+                }else if(this.type == 6){
+                    this.parentComponent.fetchGive();
                 }
 
             }else{

@@ -3478,6 +3478,9 @@
     "ReceiveHistory": {
       "__uuid__": "a1a2db0e-9667-4ba9-b34e-549c375a1025"
     },
+    "GiveUserAlert": {
+      "__uuid__": "d5ac494d-d8cb-4a94-8ef9-50430af81ca5"
+    },
     "goldLabel": {
       "__id__": 6
     },

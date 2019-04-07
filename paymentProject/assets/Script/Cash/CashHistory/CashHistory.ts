@@ -72,7 +72,7 @@ export default class NewClass extends cc.Component {
                         type : data.type,
                         amount : data.amount,
                         handling_fee:data.handling_fee,
-                        exchange:data.exchange,
+                        replace_handling_fee:data.replace_handling_fee,
                         arrival_amount:data.arrival_amount,
                         status : data.status,
                         created_at : data.created_at,

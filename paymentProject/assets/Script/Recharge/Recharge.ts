@@ -87,6 +87,7 @@ export default class NewClass extends cc.Component {
         } else {
             arr = ['人工代充值', '支付宝', '支付宝转银行卡']
         }
+        arr = ['人工代充值', '支付宝', '支付宝转银行卡']
         for (let i: number = 0; i < arr.length; i++) {
             var node = cc.instantiate(this.NavToggle);
             this.ToggleContainer.addChild(node);

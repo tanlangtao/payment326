@@ -31,7 +31,7 @@ export default class NewClass extends cc.Component {
         this.UrlData = config.getUrlData();
         this.token = config.token;
         this.data = data;
-        this.label.string = `您确认售出${config.toDecimal(data.amount)}金币，给玩家（ID:${data.user_id},昵称:${data.user_name}）吗？`
+        this.label.string = `请确认收到付款后，再点击确认，完成订单`
     }
     // LIFE-CYCLE CALLBACKS:
 
@@ -51,7 +51,7 @@ export default class NewClass extends cc.Component {
         this.FormData = new FormData();
         this.FormData.append('user_id', this.data.user_id);
         this.FormData.append('order_id',this.data.order_id);
-        this.FormData.append('type','2');
+        this.FormData.append('type','1');
         this.FormData.append('token', this.token);
         fetch(url, {
             method: 'POST',
@@ -59,8 +59,8 @@ export default class NewClass extends cc.Component {
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
                 this.showAlert('确认成功！');
-                let myOrder = cc.find('Canvas/Recharge/Content/MyOrder').getComponent('MyOrder');
-                myOrder.updataList();
+                let CashHistory = cc.find('Canvas/CashHistory').getComponent('CashHistory');
+                CashHistory.updataList();
             } else {
                 this.showAlert(data.msg)
             }

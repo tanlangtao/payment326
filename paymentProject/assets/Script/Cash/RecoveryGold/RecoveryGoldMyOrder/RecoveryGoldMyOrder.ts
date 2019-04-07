@@ -94,13 +94,16 @@ export default class NewClass extends cc.Component {
     }
 
     public fetchIndex() {
-        this.pageLabel.string = `${this.page} / 10`;
-        var url = `${this.UrlData.host}/api/sell_gold/mySellGoldOrderList?replace_id=${this.UrlData.user_id}&user_id=${this.IdInput.string}&order_status=${this.current}&token=${this.token}`;
+
+        var url = `${this.UrlData.host}/api/recycle_gold/myRecycleGoldOrderList?user_id=${this.UrlData.user_id}
+        &search_id=${this.IdInput.string== '' ? '0' :this.IdInput.string}&status=${this.current}
+        &token=${this.token}`;
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
                 this.results = data;
+                this.pageLabel.string = `${this.page} / ${data.data.total_page == 0 ? '1' : data.data.total_page}`;
                 cc.log(data);
             } else {
 
@@ -180,6 +183,7 @@ export default class NewClass extends cc.Component {
     }
 
     onClick() {
+        this.updataList()
 
     }
 

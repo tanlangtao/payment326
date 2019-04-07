@@ -33,6 +33,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     ReceiveHistory : cc.Prefab =null;
 
+    @property(cc.Prefab)
+    GiveUserAlert : cc.Prefab =null;
+
     @property(cc.Label)
     goldLabel: cc.Label = null;
 
@@ -56,6 +59,7 @@ export default class NewClass extends cc.Component {
     public UrlData : any = [];
     public token : string = '';
     public data : any = {};
+    public searchData : any = {};
     public FormData = new FormData();
     // LIFE-CYCLE CALLBACKS:
 
@@ -76,7 +80,7 @@ export default class NewClass extends cc.Component {
     }
 
     public fetchIndex(){
-        var url = `${this.UrlData.host}/api/with_draw/index?user_id=${this.UrlData.user_id}&withdraw_type=1&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/give/index?user_id=${this.UrlData.user_id}&token=${this.token}`;
         fetch(url,{
             method:'get'
         }).then((data)=>data.json()).then((data)=>{
@@ -90,10 +94,13 @@ export default class NewClass extends cc.Component {
         })
     }
 
+
     init(){
         var data = this.data.data;
+        //模拟game_gold
+        data = {...data,game_gold:2000};
         this.goldLabel.string = this.config.toDecimal(data.game_gold);
-        this.czArea.string = `赠送范围:(${data.withdraw_min_amount} - ${data.withdraw_max_amount})`;
+        this.czArea.string = `赠送范围:(${data.min_amount} - ${data.max_amount})`;
         this.passworldLabel.string = data.is_password == 1 ? '已设置' : '未设置';
         this.btn1.string = data.is_password == 1 ? '去修改' : '去设置';
     }
@@ -156,15 +163,15 @@ export default class NewClass extends cc.Component {
             type : type
         })
     }
-    //验证密码回调type=5
-    public fetchGive(pay_password){
-        var url = `${this.UrlData.host}/api/with_draw/applyWithDraw`;
+    //验证密码回调type=6
+    public fetchGive(){
+        var url = `${this.UrlData.host}/api/give/giveAmount`;
         this.FormData= new FormData();
         this.FormData.append('user_id',this.UrlData.user_id)
         this.FormData.append('user_name',decodeURI(this.UrlData.user_name))
         this.FormData.append('amount',this.amountInput.string)
-        this.FormData.append('handling_fee',this.idInput.string)
-        this.FormData.append('pay_password',pay_password)
+        this.FormData.append('by_id',this.idInput.string)
+        this.FormData.append('by_name',this.searchData.data.game_nick)
         this.FormData.append('client',this.UrlData.client)
         this.FormData.append('proxy_user_id',this.UrlData.proxy_user_id)
         this.FormData.append('proxy_name',decodeURI(this.UrlData.proxy_name))
@@ -175,7 +182,7 @@ export default class NewClass extends cc.Component {
             body:this.FormData
         }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
-                this.showAlert('申请成功！')
+                this.showAlert('赠送成功！')
             }else{
                 this.showAlert(data.msg)
             }
@@ -219,10 +226,33 @@ export default class NewClass extends cc.Component {
         this.idInput.string = '';
     }
 
+    showGiveUserAlert(){
+        var node = cc.instantiate(this.GiveUserAlert);
+        var canvas = cc.find('Canvas');
+
+        var url = `${this.UrlData.host}/api/give/searchByUser?by_id=${this.idInput.string}&token=${this.token}`;
+        fetch(url,{
+            method:'get'
+        }).then((data)=>data.json()).then((data)=>{
+            if(data.status == 0){
+                this.searchData = data;
+                canvas.addChild(node);
+                node.getComponent('GiveUserAlert').init({
+                    data:data.data,
+                    gold:this.amountInput.string,
+                    parentComponent:this
+                })
+            }else{
+                this.showAlert(data.msg)
+            }
+        })
+
+    }
+
     onClick(){
         var amount = Number(this.amountInput.string);
-        var minAmount = Number(this.data.data.withdraw_min_amount);
-        var maxAmount = Number(this.data.data.withdraw_max_amount);
+        var minAmount = Number(this.data.data.min_amount);
+        var maxAmount = Number(this.data.data.max_amount);
 
         if(this.data.data.is_password == 0){
             this.showAlert('请先设置资金密码!')
@@ -235,7 +265,7 @@ export default class NewClass extends cc.Component {
         }else if(amount < minAmount || amount >maxAmount){
             this.showAlert('超出赠送范围!')
         }else{
-            this.showTestPassword(5);
+            this.showGiveUserAlert();
         }
     }
     // update (dt) {}
