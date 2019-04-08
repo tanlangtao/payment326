@@ -40,8 +40,8 @@ export default class NewClass extends cc.Component {
         var config = new Config();
         this.UrlData =config.getUrlData();
         this.token = config.token;
+        this.fetchIndex();
 
-        this.addNavToggle()
     }
 
     start () {
@@ -52,6 +52,19 @@ export default class NewClass extends cc.Component {
         
     }
 
+    public fetchIndex(){
+        var url = `${this.UrlData.host}/api/with_draw/index?user_id=${this.UrlData.user_id}&token=${this.token}`;
+        fetch(url,{
+            method:'get'
+        }).then((data)=>data.json()).then((data)=>{
+            if(data.status == 0){
+                this.results = data;
+                this.addNavToggle()
+            }else{
+            }
+        })
+    }
+
     public historyBtnClick(){
         var node = cc.instantiate(this.CashHistory);
         var canvas = cc.find('Canvas');
@@ -59,7 +72,19 @@ export default class NewClass extends cc.Component {
     }
 
     public addNavToggle(){
-        var arr = ['人工兑换','兑换','赠送']
+        var arr = [];
+        if(this.results.data.withDraw_info.replace_withdraw.is_close == 0){
+            arr.push('人工兑换')
+        }
+        if(this.results.data.withDraw_info.bankcard.is_close == 0){
+            arr.push('支付宝兑换')
+        }
+        if(this.results.data.withDraw_info.alipay.is_close == 0){
+            arr.push('银行卡兑换')
+        }
+        if(this.results.data.withDraw_info.given.is_close == 0){
+            arr.push('赠送')
+        }
         for(let i:number = 0; i< arr.length; i++){
             var node = cc.instantiate(this.NavToggle);
             this.ToggleContainer.addChild(node);

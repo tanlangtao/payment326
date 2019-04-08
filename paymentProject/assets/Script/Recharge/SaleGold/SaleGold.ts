@@ -346,6 +346,8 @@ export default class NewClass extends cc.Component {
             this.showAlert('请等待审核完成！')
         }else if(status == 4){
             this.fetchDownSellGold();
+        }else if(this.results.data.is_password == 0) {
+            this.showAlert('请先设置资金密码！')
         }else if(this.amountInput.string == '') {
             this.showAlert('出售金币数量不能为空！')
         }else if(amount > game_gold ){
@@ -355,8 +357,7 @@ export default class NewClass extends cc.Component {
         }else if (this.ContactInput.string == '') {
             this.showAlert('请填写联系方式！')
         }else{
-            // this.showTestPassword(4);
-            this.fetchSell_gold()
+            this.showTestPassword(4);
         }
     }
 

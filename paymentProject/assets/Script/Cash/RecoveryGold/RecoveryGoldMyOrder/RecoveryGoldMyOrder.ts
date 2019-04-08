@@ -25,6 +25,8 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     RgDh: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    myorderItem: cc.Prefab = null;
 
     @property(cc.EditBox)
     IdInput: cc.EditBox = null;
@@ -94,10 +96,8 @@ export default class NewClass extends cc.Component {
     }
 
     public fetchIndex() {
-
-        var url = `${this.UrlData.host}/api/recycle_gold/myRecycleGoldOrderList?user_id=${this.UrlData.user_id}
-        &search_id=${this.IdInput.string== '' ? '0' :this.IdInput.string}&status=${this.current}
-        &token=${this.token}`;
+        console.log(this.UrlData.user_id,this.current)
+        var url = `${this.UrlData.host}/api/recycle_gold/myRecycleGoldOrderList?user_id=${this.UrlData.user_id}&search_id=${this.IdInput.string== '' ? '0' :this.IdInput.string}&status=${this.current}&page=${this.page}&page_set=5&token=${this.token}`;
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {
@@ -105,12 +105,20 @@ export default class NewClass extends cc.Component {
                 this.results = data;
                 this.pageLabel.string = `${this.page} / ${data.data.total_page == 0 ? '1' : data.data.total_page}`;
                 cc.log(data);
+                this.init();
             } else {
 
             }
         })
     }
-
+    init(){
+        for(let i = 0; i < this.results.data.list.length; i++){
+            let data = this.results.data.list[i];
+            let node = cc.instantiate(this.myorderItem);
+            this.MyOrderList.addChild(node);
+            node.getComponent('RecoveryGoldMyOrderItem').init(data,this)
+        }
+    }
 
     //selectItem回调
     public initRender() {
@@ -169,7 +177,7 @@ export default class NewClass extends cc.Component {
     }
 
     pageDown(){
-        if(this.page < 10){
+        if(this.page < this.results.data.total_page){
             this.page = this.page + 1;
             this.updataList();
         }
@@ -183,6 +191,7 @@ export default class NewClass extends cc.Component {
     }
 
     onClick() {
+        this.page = 1;
         this.updataList()
 
     }

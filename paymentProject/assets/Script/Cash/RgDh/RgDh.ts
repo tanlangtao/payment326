@@ -73,7 +73,7 @@ export default class NewClass extends cc.Component {
     }
 
     public fetchIndex(){
-        var url = `${this.UrlData.host}/api/with_draw/index?user_id=${this.UrlData.user_id}&withdraw_type=1&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/with_draw/index?user_id=${this.UrlData.user_id}&token=${this.token}`;
         fetch(url,{
             method:'get'
         }).then((data)=>data.json()).then((data)=>{
@@ -88,8 +88,9 @@ export default class NewClass extends cc.Component {
 
     init(){
         var data = this.data.data;
+        var replace_withdraw = this.data.data.withDraw_info.replace_withdraw;
         this.amountLabel.string = this.config.toDecimal(data.game_gold);
-        this.czArea.string = `兑换范围:(${data.withdraw_min_amount} - ${data.withdraw_max_amount})`;
+        this.czArea.string = `兑换范围:(${replace_withdraw.min_amount} - ${replace_withdraw.max_amount})`;
         this.passworldLabel.string = data.is_password == 1 ? '已设置' : '未设置';
         this.btn1.string = data.is_password == 1 ? '去修改' : '去设置';
     }
@@ -155,14 +156,13 @@ export default class NewClass extends cc.Component {
         })
     }
     //验证密码回调type=3
-    public fetchRgDh(pay_password){
-        var url = `${this.UrlData.host}/api/with_draw/applyWithDraw`;
+    public fetchRgDh(){
+        var url = `${this.UrlData.host}/api/with_draw/withDrawReplaceApply`;
         this.FormData= new FormData();
         this.FormData.append('user_id',this.UrlData.user_id)
         this.FormData.append('user_name',decodeURI(this.UrlData.user_name))
         this.FormData.append('amount',this.amountInput.string)
         this.FormData.append('handling_fee',this.scaleInput.string)
-        this.FormData.append('pay_password',pay_password)
         this.FormData.append('client',this.UrlData.client)
         this.FormData.append('proxy_user_id',this.UrlData.proxy_user_id)
         this.FormData.append('proxy_name',decodeURI(this.UrlData.proxy_name))
@@ -221,8 +221,9 @@ export default class NewClass extends cc.Component {
         var amount = Number(this.amountInput.string);
         var gold = Number(this.amountLabel.string);
         var scale = Number(this.scaleInput.string);
-        var minAmount = Number(this.data.data.withdraw_min_amount);
-        var maxAmount = Number(this.data.data.withdraw_max_amount);
+        var replace_withdraw = this.data.data.withDraw_info.replace_withdraw;
+        var minAmount = Number(replace_withdraw.min_amount);
+        var maxAmount = Number(replace_withdraw.max_amount);
 
         if(this.data.data.is_password == 0){
             this.showAlert('请先设置资金密码!')

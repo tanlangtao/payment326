@@ -93,20 +93,30 @@ export default class NewClass extends cc.Component {
     }
 
     public fetchIndex() {
-        this.pageLabel.string = `${this.page} / 10`;
-        var url = `${this.UrlData.host}/api/sell_gold/mySellGoldOrderList?replace_id=${this.UrlData.user_id}&user_id=${this.IdInput.string}&order_status=${this.current}&token=${this.token}`;
+
+        var url = `${this.UrlData.host}/api/give/myGiveList?type=1&user_id=${this.UrlData.user_id}&given_id=${this.IdInput.string == '' ? '0' :this.IdInput.string}&page=${this.page}&page_set=5&token=${this.token}`;
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
                 this.results = data;
                 cc.log(data);
+                this.init()
             } else {
-
+                this.showAlert(data.msg)
             }
         })
     }
 
+    init(){
+        this.pageLabel.string = `${this.page} / ${this.results.data.total_page == 0 ?'1' :this.results.data.total_page}`;
+        for(let i = 0 ;i < this.results.data.list.length ;i++){
+            let data = this.results.data.list[i];
+            let node = cc.instantiate(this.GiveItem);
+            this.GiveHistoryList.addChild(node);
+            node.getComponent('GiveItem').init(data);
+        }
+    }
 
     //selectItem回调
     public initRender() {
@@ -165,7 +175,7 @@ export default class NewClass extends cc.Component {
     }
 
     pageDown(){
-        if(this.page < 10){
+        if(this.page < this.results.data.total_page){
             this.page = this.page + 1;
             this.updataList();
         }
@@ -176,7 +186,8 @@ export default class NewClass extends cc.Component {
     }
 
     onClick() {
-
+        this.page = 1;
+        this.updataList();
     }
 
     // update (dt) {}

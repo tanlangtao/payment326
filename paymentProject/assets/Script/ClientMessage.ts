@@ -20,10 +20,11 @@ export default class NewClass extends cc.Component {
     public listenHandler : any = ''
     public eventMap : any = ''
     public ok : any = ''
-    public queue : any = ''
+    public queue : any = []
     public _t : any = ''
-    ctro(app){
-        this.app = app
+    constructor(){
+        super();
+        // this.app = app
         this.params = this.getParams()
         this.client = this.params.os === 'android' ? window['__REACT_WEB_VIEW_BRIDGE'] : window['ReactNativeWebView'] || window
         this.listenHandler = this.params.os === 'android' ? window.document : window.document

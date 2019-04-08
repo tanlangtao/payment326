@@ -41,7 +41,7 @@ export default class NewClass extends cc.Component {
     selectContent: cc.Node = null;
 
     @property(cc.Node)
-    ReceiveHistoryList: cc.Node = null;
+    GiveHistoryList: cc.Node = null;
 
     @property
     public showSelect = false;
@@ -61,7 +61,7 @@ export default class NewClass extends cc.Component {
         this.UrlData = this.config.getUrlData();
         this.token = this.config.token;
 
-        this.data = ['全部','未完成','已完成'];
+        this.data = ['已完成'];
 
         this.initRender();
 
@@ -93,20 +93,30 @@ export default class NewClass extends cc.Component {
     }
 
     public fetchIndex() {
-        this.pageLabel.string = `${this.page} / 10`;
-        var url = `${this.UrlData.host}/api/sell_gold/mySellGoldOrderList?replace_id=${this.UrlData.user_id}&user_id=${this.IdInput.string}&order_status=${this.current}&token=${this.token}`;
+
+        var url = `${this.UrlData.host}/api/give/myGiveList?type=2&user_id=${this.UrlData.user_id}&given_id=${this.IdInput.string == '' ? '0' :this.IdInput.string}&page=${this.page}&page_set=5&token=${this.token}`;
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
                 this.results = data;
                 cc.log(data);
+                this.init()
             } else {
-
+                this.showAlert(data.msg)
             }
         })
     }
 
+    init(){
+        this.pageLabel.string = `${this.page} / ${this.results.data.total_page == 0 ?'1' :this.results.data.total_page}`;
+        for(let i = 0 ;i < this.results.data.list.length ;i++){
+            let data = this.results.data.list[i];
+            let node = cc.instantiate(this.ReceiveItem);
+            this.GiveHistoryList.addChild(node);
+            node.getComponent('ReceiveItem').init(data,this);
+        }
+    }
 
     //selectItem回调
     public initRender() {
@@ -140,7 +150,7 @@ export default class NewClass extends cc.Component {
         node.getComponent('PublicAlert').init(data);
     }
 
-    GiveClick() {
+    ReceiveClick() {
         this.node.destroy();
         let node = cc.instantiate(this.GiveHistory);
         let content = cc.find('Canvas/Cash/Content');
@@ -149,7 +159,7 @@ export default class NewClass extends cc.Component {
     }
 
     updataList(){
-        this.ReceiveHistoryList.removeAllChildren();
+        this.GiveHistoryList.removeAllChildren();
         this.fetchIndex();
     }
 
@@ -165,7 +175,7 @@ export default class NewClass extends cc.Component {
     }
 
     pageDown(){
-        if(this.page < 10){
+        if(this.page < this.results.data.total_page){
             this.page = this.page + 1;
             this.updataList();
         }
@@ -176,7 +186,8 @@ export default class NewClass extends cc.Component {
     }
 
     onClick() {
-
+        this.page = 1;
+        this.updataList();
     }
 
     // update (dt) {}

@@ -19,9 +19,6 @@ export default class NewClass extends cc.Component {
     publicAlert : cc.Prefab = null;
 
     @property(cc.Prefab)
-    AlipayAccountAlert : cc.Prefab = null;
-
-    @property(cc.Prefab)
     BankAccountAlert :cc.Prefab = null;
 
     @property(cc.Prefab)
@@ -33,6 +30,12 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     TestPasswordAlert : cc.Prefab =null;
 
+    @property(cc.Prefab)
+    SelectItem : cc.Prefab =null;
+
+    @property(cc.Label)
+    SelectLabel : cc.Label = null;
+
     @property(cc.Label)
     amountLabel: cc.Label = null;
     
@@ -41,16 +44,6 @@ export default class NewClass extends cc.Component {
 
     @property(cc.Label)
     czArea: cc.Label = null;
-
-    @property(cc.Label)
-    selectLabel: cc.Label = null;
-
-    @property(cc.Prefab)
-    SelectItem: cc.Prefab =null;
-
-    @property(cc.Node)
-    selectContent: cc.Node =null;
-
     @property(cc.Label)
     accountLabel: cc.Label = null;
 
@@ -63,24 +56,27 @@ export default class NewClass extends cc.Component {
     @property(cc.Label)
     btn2: cc.Label = null;
 
+    @property(cc.Node)
+    selectContent :cc.Node = null;
     @property
-    showSelect = false;
-    results = [1,2];
-    current = 1;
     public config  = null;
     public UrlData : any = [];
     public token : string = '';
     public data : any = {};
     public FormData = new FormData();
+    public showSelect = false;
+    public results= null ;
+    public current = {channel_name: "银行卡1",
+        channel_type: "2",
+        max_amount: "40000",
+        min_amount: "50"};
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.config = new Config();
         this.UrlData = this.config.getUrlData();
         this.token = this.config.token;
-
         this.initRender();
-
         this.getPublicInput();
     }
 
@@ -88,26 +84,8 @@ export default class NewClass extends cc.Component {
 
     }
 
-    selectClick(){
-        if(!this.showSelect){
-            for( var i = 0 ; i < this.results.length ; i++){
-                var node = cc.instantiate(this.SelectItem);
-                this.selectContent.addChild(node);
-                node.getComponent('SelectItem').init({
-                    text:this.results[i] == 1?'支付宝' : '银行卡',
-                    parentComponent:this,
-                    index:i
-                })
-            }
-            this.showSelect = true;
-        }else{
-            this.selectContent.removeAllChildren();
-            this.showSelect = false;
-        }
-    }
-
     public fetchIndex(){
-        var url = `${this.UrlData.host}/api/with_draw/index?user_id=${this.UrlData.user_id}&withdraw_type=${this.current}&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/with_draw/index?user_id=${this.UrlData.user_id}&token=${this.token}`;
         fetch(url,{
             method:'get'
         }).then((data)=>data.json()).then((data)=>{
@@ -123,21 +101,18 @@ export default class NewClass extends cc.Component {
     
     init(){
         var data = this.data.data;
+        this.results = this.data.data.withDraw_info.bankcard.channel;
         this.amountLabel.string = this.config.toDecimal(data.game_gold);
-        this.czArea.string = `兑换范围:(${data.withdraw_min_amount} - ${data.withdraw_max_amount})`;
-        if(this.current == 1){
-            this.accountLabel.string = data.is_bind == 1 ? this.config.testBankNum(data.alipay_account) :'未绑定';
-        }else{
-            this.accountLabel.string = data.is_bind == 1 ? this.config.testBankNum(data.bank_num) :'未绑定';
-        }
+        this.czArea.string = `兑换范围:(${this.current.min_amount} - ${this.current.max_amount})`;
+        this.accountLabel.string = data.bank_num != "" ? this.config.testBankNum(data.bank_num) :'未绑定';
         this.passworldLabel.string = data.is_password == 1 ? '已设置' : '未设置';
-        this.btn1.string = data.is_bind == 1 ? '去修改' : '去绑定';
+        this.btn1.string = data.bank_num != "" ? '去修改' : '去绑定';
         this.btn2.string = data.is_password == 1 ? '去修改' : '去设置';
     }
 
     //selectItem回调
     public initRender(){
-        this.selectLabel.string = this.current ==1 ?'支付宝' : '银行卡';
+        this.SelectLabel.string = this.current.channel_name;
         this.fetchIndex();
     }
 
@@ -183,33 +158,23 @@ export default class NewClass extends cc.Component {
     }
     //验证密码回调type=1
     showAccountAlert(){
-        if(this.current == 1){
-            var node = cc.instantiate(this.AlipayAccountAlert);
-            var canvas = cc.find('Canvas');
-            canvas.addChild(node);
-            node.getComponent('AlipayAccountAlert').init({
-                text:this.data.data.is_bind == 1 ?'修改账户'  : '绑定账户',
-                parentComponent:this
-            })
-        }else{
-            var node = cc.instantiate(this.BankAccountAlert);
-            var canvas = cc.find('Canvas');
-            canvas.addChild(node);
-            node.getComponent('BankAccountAlert').init({
-                text:this.data.data.is_bind == 1 ?'修改银行卡' : '绑定银行卡',
-                parentComponent:this
-            })
-        }
+        var node = cc.instantiate(this.BankAccountAlert);
+        var canvas = cc.find('Canvas');
+        canvas.addChild(node);
+        node.getComponent('BankAccountAlert').init({
+            text:this.data.data.bank_num !='' ?'修改银行卡' : '绑定银行卡',
+            parentComponent:this
+        })
     }
     //验证密码回调type=2
-    public fetchwithDrawApply(pay_password){
+    public fetchwithDrawApply(){
         var url = `${this.UrlData.host}/api/with_draw/withDrawApply`;
         this.FormData= new FormData();
         this.FormData.append('user_id',this.UrlData.user_id)
         this.FormData.append('user_name',decodeURI(this.UrlData.user_name))
         this.FormData.append('amount',this.amountInput.string)
-        this.FormData.append('withdraw_type',`${this.current}`)
-        this.FormData.append('pay_password',pay_password)
+        this.FormData.append('order_type',this.current.channel_type);
+        this.FormData.append('withdraw_type',`2`);
         this.FormData.append('client',this.UrlData.client)
         this.FormData.append('proxy_user_id',this.UrlData.proxy_user_id)
         this.FormData.append('proxy_name',decodeURI(this.UrlData.proxy_name))
@@ -226,7 +191,23 @@ export default class NewClass extends cc.Component {
             }
         })
     }
-
+    selectClick(){
+        if(!this.showSelect){
+            for( var i = 0 ; i < this.results.length ; i++){
+                var node = cc.instantiate(this.SelectItem);
+                this.selectContent.addChild(node);
+                node.getComponent('SelectItem').init({
+                    text:this.results[i].channel_name,
+                    parentComponent:this,
+                    index:i
+                })
+            }
+            this.showSelect = true;
+        }else{
+            this.selectContent.removeAllChildren();
+            this.showSelect = false;
+        }
+    }
     btn1Click(){
         if(this.data.data.is_password == 1){
             this.showTestPassword(1);
@@ -256,8 +237,8 @@ export default class NewClass extends cc.Component {
 
     onClick(){
         var amount = Number(this.amountInput.string);
-        var minAmount = Number(this.data.data.withdraw_min_amount);
-        var maxAmount = Number(this.data.data.withdraw_max_amount);
+        var minAmount = Number(this.current.min_amount);
+        var maxAmount = Number(this.current.max_amount);
 
         if(this.data.data.is_password == 0){
             this.showAlert('请先设置资金密码!')

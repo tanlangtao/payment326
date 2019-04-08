@@ -78,7 +78,7 @@ export default class NewClass extends cc.Component {
                         clearTimeout(timer);
                     },500)
                 }else if(this.type == 2){
-                    this.parentComponent.fetchwithDrawApply(this.passwordInput.string);
+                    this.parentComponent.fetchwithDrawApply();
                 }else if(this.type == 3){
                     this.parentComponent.fetchRgDh();
                 }else if(this.type == 4){
