@@ -53,7 +53,7 @@ export default class NewClass extends cc.Component {
     }
 
     public exitBtnClick() {
-       this.Client.send('__back',{},()=>{})
+       this.Client.send('__backtohall',{},()=>{})
     }
 
     public historyBtnClick() {

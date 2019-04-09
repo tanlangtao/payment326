@@ -94,7 +94,7 @@ export default class NewClass extends cc.Component {
 
     public fetchIndex() {
 
-        var url = `${this.UrlData.host}/api/give/myGiveList?type=1&user_id=${this.UrlData.user_id}&given_id=${this.IdInput.string == '' ? '0' :this.IdInput.string}&page=${this.page}&page_set=5&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/give/myGiveList?type=1&status=${this.current}&user_id=${this.UrlData.user_id}&given_id=${this.IdInput.string == '' ? '0' :this.IdInput.string}&page=${this.page}&page_set=5&token=${this.token}`;
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {

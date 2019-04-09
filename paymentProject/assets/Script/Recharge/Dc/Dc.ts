@@ -108,6 +108,7 @@ export default class NewClass extends cc.Component {
             body: this.FormData
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
+                this.showAlert('充值成功！')
                 var node = cc.instantiate(this.service);
                 var content = cc.find('Canvas/Recharge/Content');
                 content.addChild(node);

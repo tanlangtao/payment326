@@ -3281,6 +3281,9 @@
     "RecoveryGold": {
       "__uuid__": "c1eff934-7a77-44f9-8c25-caa3f5eec5b2"
     },
+    "service": {
+      "__uuid__": "315c4863-313d-4c04-9ea5-b6abf20b1121"
+    },
     "amountLabel": {
       "__id__": 6
     },

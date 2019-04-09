@@ -30,6 +30,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     RecoveryGold : cc.Prefab =null;
 
+    @property(cc.Prefab)
+    service : cc.Prefab =null;
+
     @property(cc.Label)
     amountLabel: cc.Label = null;
 
@@ -47,6 +50,7 @@ export default class NewClass extends cc.Component {
 
     @property(cc.Label)
     btn1: cc.Label = null;
+
 
     @property
     public config  = null;
@@ -174,6 +178,13 @@ export default class NewClass extends cc.Component {
         }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
                 this.showAlert('申请成功！')
+                var node = cc.instantiate(this.service);
+                var content = cc.find('Canvas/Cash/Content');
+                content.addChild(node);
+                node.getComponent('Service').init({
+                    results: data,
+                    parentComponent: this
+                })
             }else{
                 this.showAlert(data.msg)
             }

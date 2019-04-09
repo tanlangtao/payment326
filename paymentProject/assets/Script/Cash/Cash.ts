@@ -1,4 +1,5 @@
 import Config from "../Config";
+import ClientMessage from "../ClientMessage";
 
 // Learn TypeScript:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -32,8 +33,8 @@ export default class NewClass extends cc.Component {
     public token : string = '';
     public results : any = {};
     public zfbResults : any = {};
-    // LIFE-CYCLE CALLBACKS:
 
+    public Client = null;
     
     onLoad () {
         
@@ -46,10 +47,11 @@ export default class NewClass extends cc.Component {
 
     start () {
 
-
+        this.Client = new ClientMessage();
+        this.Client.send('__done',{},()=>{})
     }
     public exitBtnClick(){
-        
+        this.Client.send('__backtohall',{},()=>{})
     }
 
     public fetchIndex(){

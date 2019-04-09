@@ -29,7 +29,7 @@ export default class NewClass extends cc.Component {
         var config = new Config();
         this.UrlData =config.getUrlData();
         //根据path来决定渲染充值或兑换
-        if(this.UrlData.path == '/Cash'){
+        if(this.UrlData.path == '/cash'){
             var node = cc.instantiate(this.Cash);
             var canvas = cc.find('Canvas');
             canvas.addChild(node);
