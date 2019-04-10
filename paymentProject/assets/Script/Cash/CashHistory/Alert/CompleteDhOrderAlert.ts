@@ -31,7 +31,7 @@ export default class NewClass extends cc.Component {
         this.UrlData = config.getUrlData();
         this.token = config.token;
         this.data = data;
-        this.label.string = `请确认收到付款后，再点击确认，完成订单`
+        this.label.string = `请确认收到转账信息后，再点击确认，完成订单`
     }
     // LIFE-CYCLE CALLBACKS:
 

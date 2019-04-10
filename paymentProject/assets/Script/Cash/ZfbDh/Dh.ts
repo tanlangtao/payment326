@@ -215,7 +215,7 @@ export default class NewClass extends cc.Component {
         var maxAmount = Number(channel.max_amount);
         if(this.data.data.is_password == 0){
             this.showAlert('请先设置资金密码!')
-        }else if(this.data.data.is_bind == 0){
+        }else if(this.data.data.alipay_account == ''){
             this.showAlert('请先绑定账户!')
         }else if(this.amountInput.string == ''){
             this.showAlert('兑换金额不能为空！')

@@ -50,7 +50,7 @@ export default class NewClass extends cc.Component {
     public init(data){
         this.order_idLabel.string = data.order_id.substr(-6);
         this.user_idLabel.string = data.user_id;
-        this.statusLabel.string = data.status == 6 ? "已完成":"未完成";
+        this.statusLabel.string = data.status == 6 ? "已完成":(data.status == 4 ?'已撤销':'未完成');
         this.amountLabel.string = this.config.toDecimal(data.amount);
         this.created_atLabel.string = this.config.getTime(data.created_at);
         this.results = data.results;

@@ -31,7 +31,7 @@ export default class NewClass extends cc.Component {
         this.UrlData = config.getUrlData();
         this.token = config.token;
         this.data = data;
-        this.label.string = `您确认售出${config.toDecimal(data.amount)}金币，给玩家（ID:${data.user_id},昵称:${data.user_name}）吗？`
+        this.label.string = `您确认售出${config.toDecimal(data.amount)}金币，给玩家 ID:${data.user_id},昵称:${data.user_name}吗？（确认收到转账信息）`
     }
     // LIFE-CYCLE CALLBACKS:
 

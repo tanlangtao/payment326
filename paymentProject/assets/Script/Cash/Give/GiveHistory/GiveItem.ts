@@ -43,8 +43,8 @@ export default class NewClass extends cc.Component {
         this.IdLabel.string = data.replace_id;
         this.amountLabel.string = this.config.toDecimal(data.amount);
         this.creteTimeLabel.string = this.config.getTime(data.created_at);
-        this.finishTimeLabel.string = this.config.getTime(data.arrival_at);
-        this.statusLabel.string = data.status == 4 ? '已完成' :'未完成 ';
+        this.finishTimeLabel.string = data.arrival_at == 0? '无' :this.config.getTime(data.arrival_at);
+        this.statusLabel.string = data.status == 8 ? '已完成' :'未完成 ';
         this.remarkLabel.string = !data.user_remark ?'':data.user_remark;
     }
 
