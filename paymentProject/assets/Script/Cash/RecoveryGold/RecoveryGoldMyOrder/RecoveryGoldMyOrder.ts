@@ -97,7 +97,7 @@ export default class NewClass extends cc.Component {
 
     public fetchIndex() {
         console.log(this.UrlData.user_id,this.current)
-        var url = `${this.UrlData.host}/api/recycle_gold/myRecycleGoldOrderList?user_id=${this.UrlData.user_id}&search_id=${this.IdInput.string== '' ? '0' :this.IdInput.string}&status=${this.current}&page=${this.page}&page_set=5&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/recycle_gold/myRecycleGoldOrderList?user_id=${this.UrlData.user_id}&search_id=${this.IdInput.string== '' ? '0' :this.IdInput.string}&order_status=${this.current}&page=${this.page}&page_set=5&token=${this.token}`;
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {

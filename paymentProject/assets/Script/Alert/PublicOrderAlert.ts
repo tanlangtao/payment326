@@ -30,6 +30,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Label)
     nickNameLabel: cc.Label = null;
 
+    @property(cc.Label)
+    remarkLabel : cc.Label = null;
+
     @property(cc.Prefab)
     publicAlert : cc.Prefab = null;
 
@@ -46,6 +49,7 @@ export default class NewClass extends cc.Component {
         this.card_nameLabel.string = data.data.card_name;
         this.card_numLabel.string = data.data.card_num;
         this.nickNameLabel.string = decodeURI(this.UrlData.user_name);
+        this.remarkLabel.string = data.data.remark;
     }
     // LIFE-CYCLE CALLBACKS:
 
@@ -72,6 +76,11 @@ export default class NewClass extends cc.Component {
     copyAmount(){
         this.config.copyToClipBoard(this.amountLabel.string);
         this.showAlert(`复制成功！${this.amountLabel.string}`);
+    }
+
+    copyRemark(){
+        this.config.copyToClipBoard(this.remarkLabel.string);
+        this.showAlert(`复制成功！${this.remarkLabel.string}`);
     }
 
     removeSelf(){

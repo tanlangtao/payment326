@@ -45,7 +45,7 @@ export default class NewClass extends cc.Component {
         this.handling_feeLabel.string = this.config.toDecimal1(data.handling_fee*100)+"%";
         this.cancleTimeLabel.string = data.down_at == 0 ? '无': this.config.getTime(data.down_at);
         this.cancleAmountLabel.string = data.status == 3 || data.status == 4 ?  this.config.toDecimal(data.last_gold):'无';
-        this.statusLabel.string = data.status == 1 ? "待审核"  : (data.status == 2 ? '挂单中':"已拒绝");
+        this.statusLabel.string = data.status == 1 ? "待审核"  : (data.status == 2 ? '挂单中':(data.status == 4 ? "已撤销" :"已拒绝"));
     }
 
     start () {

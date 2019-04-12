@@ -69,7 +69,7 @@ export default class NewClass extends cc.Component {
         var config = new Config();
         this.UrlData =config.getUrlData();
         this.token = config.token;
-        //请求支付宝
+        //请求首页
         this.fetchZfb()
 
         this.getPublicInput()
@@ -156,6 +156,7 @@ export default class NewClass extends cc.Component {
         this.FormData.append('user_id',this.UrlData.user_id)
         this.FormData.append('user_name',decodeURI(this.UrlData.user_name))
         this.FormData.append('amount',this.amountInput.string)
+        this.FormData.append('channel_id',this.current.channel_id)
         this.FormData.append('client',this.UrlData.client)
         this.FormData.append('proxy_user_id',this.UrlData.proxy_user_id)
         this.FormData.append('proxy_name',decodeURI(this.UrlData.proxy_name))
