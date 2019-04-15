@@ -137,7 +137,6 @@ export default class NewClass extends cc.Component {
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
                 this.results = data;
-                cc.log(data);
                 this.init();
             } else {
 
@@ -147,7 +146,8 @@ export default class NewClass extends cc.Component {
 
     init() {
         this.applayBtn.children[0].getComponent(cc.Label).string = '申请回收';
-        this.restGoldLabel.string = this.results.data.game_gold;
+        //当前金币余额
+        this.restGoldLabel.string = this.config.toDecimal(this.results.data.game_gold);
         this.czArea.string = `回收范围:(${this.results.data.min_amount}-${this.results.data.max_amount})`;
         this.scaleArea.string = `%  (${this.config.toDecimal1(this.results.data.min_rate*100)}-${this.config.toDecimal1(this.results.data.max_rate*100)})`;
         let data = this.results.data;
@@ -181,6 +181,7 @@ export default class NewClass extends cc.Component {
                 this.amountLabel.string = '';
                 this.contactLabel.string = '';
                 this.scaleLabel.string = '';
+                this.ContactInput.string = data.user_info.contact_info;
             }
 
         }
@@ -333,10 +334,13 @@ export default class NewClass extends cc.Component {
     }
 
     myOrderClick() {
-        this.node.destroy();
-        let node = cc.instantiate(this.MyOrder);
-        let content = cc.find('Canvas/Cash/Content');
-        content.addChild(node);
+        if(this.results!=null){
+            this.node.destroy();
+            let node = cc.instantiate(this.MyOrder);
+            let content = cc.find('Canvas/Cash/Content');
+            content.addChild(node);
+        }
+
 
     }
 
@@ -384,7 +388,9 @@ export default class NewClass extends cc.Component {
         }else if(scale > max_rate || scale < min_rate){
             this.showAlert('手续费超出系统范围！')
         }else{
-            this.showTestPassword(5);
+            // this.showTestPassword(5);
+            // 直接发出申请，不要输入密码
+            this.fetchsubmitRecycleGoldInfo()
         }
     }
 

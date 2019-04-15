@@ -153,11 +153,11 @@ export default class NewClass extends cc.Component {
     }
 
     saleGoldClick() {
-        this.node.destroy();
-        let node = cc.instantiate(this.SaleGold);
-        let content = cc.find('Canvas/Cash/Content');
-        content.addChild(node);
 
+            this.node.destroy();
+            let node = cc.instantiate(this.SaleGold);
+            let content = cc.find('Canvas/Cash/Content');
+            content.addChild(node);
     }
 
     updataList(){

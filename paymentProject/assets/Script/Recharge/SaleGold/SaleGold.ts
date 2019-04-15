@@ -62,6 +62,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Label)
     selectLabel: cc.Label = null;
 
+    @property(cc.Label)
+    applayBtnLabel:cc.Label = null;
+
     @property(cc.Prefab)
     SelectItem: cc.Prefab = null;
 
@@ -142,7 +145,7 @@ export default class NewClass extends cc.Component {
     }
 
     init() {
-        this.applayBtn.children[0].getComponent(cc.Label).string = '申请上架';
+         this.applayBtnLabel.string = '申请上架';
         let data = this.results.data;
 
         //is_apply为1,表示提交过卖分
@@ -164,7 +167,7 @@ export default class NewClass extends cc.Component {
                 this.contactLabel.string = data.user_info.contact_info;
                 //status == 4,审核通过
                 if(status == 4){
-                    this.applayBtn.children[0].getComponent(cc.Label).string = '撤销上架';
+                    this.applayBtnLabel.string = '撤销上架';
                 }
             }else{
                 this.saleGoldLabel.string = this.config.toDecimal(data.user_info.now_up_last_gold);
@@ -172,6 +175,8 @@ export default class NewClass extends cc.Component {
                 this.ContactInput.node.active = true;
                 this.amountLabel.string = '';
                 this.contactLabel.string = '';
+                this.current = Number(data.user_info.contact_type)-1;
+                this.ContactInput.string = data.user_info.contact_info;
             }
 
         }
@@ -306,10 +311,12 @@ export default class NewClass extends cc.Component {
     }
 
     myOrderClick() {
-        this.node.destroy();
-        let node = cc.instantiate(this.MyOrder);
-        let content = cc.find('Canvas/Recharge/Content');
-        content.addChild(node);
+        if(this.results!= null) {
+            this.node.destroy();
+            let node = cc.instantiate(this.MyOrder);
+            let content = cc.find('Canvas/Recharge/Content');
+            content.addChild(node);
+        }
 
     }
 
@@ -338,8 +345,8 @@ export default class NewClass extends cc.Component {
 
     onClick() {
         let amount = Number(this.amountInput.string);
-        let min_amount = Number(this.results.data.min_amount);
-        let max_amount = Number(this.results.data.max_amount);
+        let min_amount = Number(this.results.data.min_amount) || 1;
+        let max_amount = Number(this.results.data.max_amount) || 1;
         let game_gold = Number(this.results.data.game_gold);
         let status = this.results.data.is_apply == 0 ? 0 :this.results.data.user_info.status;
         if (status == 1 || status == 2){
