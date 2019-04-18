@@ -44,7 +44,7 @@ export default class NewClass extends cc.Component {
         this.amountLabel.string = this.config.toDecimal(data.amount);
         this.creteTimeLabel.string = this.config.getTime(data.created_at);
         this.finishTimeLabel.string = data.arrival_at == 0? '无' :this.config.getTime(data.arrival_at);
-        this.statusLabel.string = data.status == 8 ? '已完成' :'未完成 ';
+        this.statusLabel.string = data.status == 8 ? '已完成' :(data.status == 3 || data.status == 5 ?'已拒绝':'未完成');
         this.remarkLabel.string = !data.user_remark ?'':data.user_remark;
     }
 

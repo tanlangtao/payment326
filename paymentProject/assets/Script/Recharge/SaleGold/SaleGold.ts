@@ -185,7 +185,7 @@ export default class NewClass extends cc.Component {
         //密码是否已设置显示
         this.passwordLabel.string = data.is_password == 0 ? '未设置' : '已设置';
         //设置密码按钮是否启用
-        this.btn1.getComponent(cc.Button).interactable = data.is_password == 0 ? true :false;
+        this.btn1.active = data.is_password == 0 ? true :false;
         // 出售范围
         this.czArea.string = `出售范围(${data.min_amount}-${data.max_amount})`;
     }

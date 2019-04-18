@@ -45,7 +45,7 @@ export default class NewClass extends cc.Component {
     public init(data){
         this.amountLabel.string = this.config.toDecimal(data.amount);
         this.statusLabel.string = data.status ==6 ?'已完成' :(data.status == 4 ? '已撤销' : '未完成' );
-        this.typeLabel.string = data.type == 1 ? '支付宝充值' :(data.type == 2 ? '银行卡转账' :(data.type == 3?'人工代充值':(data.type == 4?'人工代提':'被赠送')));
+        this.typeLabel.string = data.type == 1 ? '支付宝充值' :(data.type == 2 ? '银行卡转账' :(data.type == 3?'人工代充值':(data.type == 4?'人工兑换':'赠送')));
         this.firstTimeLabel.string = this.config.getTime(data.firstTime);
         this.lastTimeLabel.string = data.lastTime == 0 ? '无' : this.config.getTime(data.lastTime);
         this.results = data.results;

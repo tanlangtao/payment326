@@ -44,8 +44,10 @@ export default class NewClass extends cc.Component {
         this.goldLabel.string = this.config.toDecimal(data.gold);
         this.down_atLabel.string = data.down_at==0?"无": this.config.getTime(data.down_at);
         this.last_goldLabel.string = this.config.toDecimal(data.last_gold);
-        this.consume_goldLabel.string = this.config.toDecimal(data.consume_gold);
-        this.statusLabel.string = data.status == 1|| data.status == 2 ? '审核中' : (data.status == 4 ?'挂单中' :'已拒绝')
+        this.consume_goldLabel.string =data.status == 3|| data.status == 5|| data.status == 6
+            ? this.config.toDecimal(data.consume_gold) :'0.00';
+        this.statusLabel.string = data.status == 1|| data.status == 2 ? '审核中'
+            : (data.status == 4 ?'挂单中' :(data.status == 6?'已下架':'已拒绝'));
     }
 
     start () {

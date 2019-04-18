@@ -77,7 +77,7 @@ export default class NewClass extends cc.Component {
                         status : data.status,
                         created_at : data.created_at,
                         arrival_at : data.arrival_at,
-                        admin_remark:data.admin_remark,
+                        user_remark:data.user_remark,
                         results:data
                     })
                 }

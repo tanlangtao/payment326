@@ -98,6 +98,9 @@ export default class NewClass extends cc.Component {
 
     removeSelf(){
         this.node.destroy();
+        //刷新Dc的数据
+        let Dc = cc.find('Canvas/Recharge/Content/Dc').getComponent('Dc');
+        Dc.fetchIndex();
     }
 
     pageUp(){

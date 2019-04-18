@@ -445,7 +445,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 56,
+      "width": 72,
       "height": 40
     },
     "_anchorPoint": {
@@ -455,7 +455,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -286,
+      "x": -275,
       "y": 0,
       "z": 0
     },
@@ -490,7 +490,7 @@
     "_useOriginalSize": false,
     "_string": "申请时间",
     "_N$string": "申请时间",
-    "_fontSize": 14,
+    "_fontSize": 18,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -543,7 +543,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 56,
+      "width": 72,
       "height": 40
     },
     "_anchorPoint": {
@@ -553,7 +553,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -168,
+      "x": -157,
       "y": 0,
       "z": 0
     },
@@ -588,7 +588,7 @@
     "_useOriginalSize": false,
     "_string": "申请金额",
     "_N$string": "申请金额",
-    "_fontSize": 14,
+    "_fontSize": 18,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -641,7 +641,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 56,
+      "width": 72,
       "height": 40
     },
     "_anchorPoint": {
@@ -651,7 +651,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -50,
+      "x": -39,
       "y": 0,
       "z": 0
     },
@@ -686,7 +686,7 @@
     "_useOriginalSize": false,
     "_string": "撤销时间",
     "_N$string": "撤销时间",
-    "_fontSize": 14,
+    "_fontSize": 18,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -739,7 +739,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 56,
+      "width": 72,
       "height": 40
     },
     "_anchorPoint": {
@@ -749,7 +749,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 68,
+      "x": 79,
       "y": 0,
       "z": 0
     },
@@ -784,7 +784,7 @@
     "_useOriginalSize": false,
     "_string": "退回金额",
     "_N$string": "退回金额",
-    "_fontSize": 14,
+    "_fontSize": 18,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -837,7 +837,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 56,
+      "width": 72,
       "height": 40
     },
     "_anchorPoint": {
@@ -847,7 +847,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 186,
+      "x": 197,
       "y": 0,
       "z": 0
     },
@@ -880,9 +880,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "销售金额",
-    "_N$string": "销售金额",
-    "_fontSize": 14,
+    "_string": "成交金额",
+    "_N$string": "成交金额",
+    "_fontSize": 18,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -935,7 +935,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 28,
+      "width": 36,
       "height": 40
     },
     "_anchorPoint": {
@@ -945,7 +945,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 284,
+      "x": 295,
       "y": 0,
       "z": 0
     },
@@ -980,7 +980,7 @@
     "_useOriginalSize": false,
     "_string": "状态",
     "_N$string": "状态",
-    "_fontSize": 14,
+    "_fontSize": 18,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -2047,7 +2047,7 @@
       "__uuid__": "3a3969e4-3339-48b4-84c8-644b6ac58136"
     },
     "SaleItem": {
-      "__uuid__": "1a6d15f2-7526-4d8e-ac1c-a8667886c4a1"
+      "__uuid__": "f6137dc3-1e16-4c21-a6d8-a3d9990bcfac"
     },
     "pageLabel": {
       "__id__": 53
