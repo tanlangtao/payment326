@@ -22,6 +22,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     ListItem : cc.Prefab = null;
 
+    @property(cc.Prefab)
+    publicAlert : cc.Prefab = null;
+
     @property(cc.Node)
     List : cc.Node = null;
 
@@ -34,6 +37,7 @@ export default class NewClass extends cc.Component {
     public results : any = {};
     public order_status = 0;
     public page = 1;
+    public isReceive = false;
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
@@ -81,10 +85,20 @@ export default class NewClass extends cc.Component {
                         results:data
                     })
                 }
+
             }else{
-                
+                this.showAlert(data.msg)
             }
+            //收到结果后才能点击搜索，上下翻页，避免页面错乱
+            this.isReceive = true;
         })
+    }
+
+    public showAlert(data) {
+        var node = cc.instantiate(this.publicAlert);
+        var canvas = cc.find('Canvas');
+        canvas.addChild(node);
+        node.getComponent('PublicAlert').init(data);
     }
 
     public addNavToggle(){
@@ -105,17 +119,24 @@ export default class NewClass extends cc.Component {
     }
 
     pageUp(){
-        if(this.page > 1){
-            this.page = this.page - 1
-            this.updataList()
+        if(this.isReceive){
+            if(this.page > 1){
+                this.page = this.page - 1
+                this.updataList();
+                this.isReceive = false;
+            }
         }
     }
 
     pageDown(){
-        if(this.page < this.results.data.total_page ){
-            this.page = this.page + 1
-            this.updataList()
+        if(this.isReceive){
+            if(this.page < this.results.data.total_page ){
+                this.page = this.page + 1
+                this.updataList();
+                this.isReceive = false;
+            }
         }
+
     }
     // update (dt) {}
 }

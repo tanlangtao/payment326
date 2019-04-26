@@ -49,7 +49,7 @@ export default class NewClass extends cc.Component {
         this.firstTimeLabel.string = this.config.getTime(data.firstTime);
         this.lastTimeLabel.string = data.lastTime == 0 ? '无' : this.config.getTime(data.lastTime);
         this.results = data.results;
-        if(data.status != 1 && data.type == 2){
+        if(data.status != 6 && data.type == 2){
 
         }else{
             this.orderBtn.removeFromParent()

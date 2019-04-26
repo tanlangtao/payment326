@@ -72,7 +72,7 @@ export default class NewClass extends cc.Component {
             var sum = Number(data.results.platform_rate) + Number(data.results.channel_rate);
             this.exchangeLabel.string  = `${this.config.toDecimal1(sum*100)}%`;
         }
-        this.arrival_amountLabel.string  = this.config.toDecimal1(data.arrival_amount);
+        this.arrival_amountLabel.string  = this.config.toDecimal(data.arrival_amount);
         this.statusLabel.string = data.status == 8 ?'已完成':'未成功';
         this.created_atLabel.string = this.config.getTime(data.created_at);
         this.arrival_atLabel.string = data.arrival_at == 0 ? '无' : this.config.getTime(data.arrival_at);

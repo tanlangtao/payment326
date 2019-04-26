@@ -56,7 +56,7 @@ export default class NewClass extends cc.Component {
     public data: any = {};
     public FormData = new FormData();
     public page = 1;
-
+    public isReceive = false;
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
@@ -102,11 +102,12 @@ export default class NewClass extends cc.Component {
         }).then((data) => data.json()).then((data) => {
             if (data.status == 0) {
                 this.results = data;
-                cc.log(data);
                 this.init();
             } else {
-
+                this.showAlert(data.msg)
             }
+            //收到结果后才能点击搜索，上下翻页，避免页面错乱
+            this.isReceive = true;
         })
     }
 
@@ -160,10 +161,13 @@ export default class NewClass extends cc.Component {
     }
 
     saleGoldClick() {
-        this.node.destroy();
-        let node = cc.instantiate(this.SaleGold);
-        let content = cc.find('Canvas/Recharge/Content');
-        content.addChild(node);
+        if(this.isReceive){
+            this.node.destroy();
+            let node = cc.instantiate(this.SaleGold);
+            let content = cc.find('Canvas/Recharge/Content');
+            content.addChild(node);
+            this.isReceive = false;
+        }
 
     }
 
@@ -177,16 +181,22 @@ export default class NewClass extends cc.Component {
     }
 
     pageUp(){
-        if(this.page > 1){
-            this.page = this.page - 1;
-            this.updataList();
+        if(this.isReceive){
+            if(this.page > 1){
+                this.page = this.page - 1;
+                this.updataList();
+                this.isReceive = false;
+            }
         }
     }
 
     pageDown(){
-        if(this.page < 10){
-            this.page = this.page + 1;
-            this.updataList();
+        if(this.isReceive){
+            if(this.page < 10){
+                this.page = this.page + 1;
+                this.updataList();
+                this.isReceive = false;
+            }
         }
     }
 
@@ -198,7 +208,10 @@ export default class NewClass extends cc.Component {
     }
 
     onClick() {
-        this.updataList()
+        if(this.isReceive){
+            this.updataList();
+            this.isReceive = false;
+        }
     }
 
     // update (dt) {}

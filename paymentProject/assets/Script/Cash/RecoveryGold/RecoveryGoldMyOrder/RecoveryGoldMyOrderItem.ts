@@ -50,38 +50,38 @@ export default class NewClass extends cc.Component {
     public init(data,parentComponent){
         this.OrderLabel.string = data.order_id.substr(-6);
         this.IdLabel.string = data.user_id;
-        this.statusLabel.string = data.status == 8?'已成功':(data.status == 7 ? '已付款':'未完成 ');
+        this.statusLabel.string = data.status == 8 ?'已成功':(data.status == 7 || data.status == 10 ? '已付款':'未完成 ');
         this.amountLabel.string = this.config.toDecimal(data.amount);
         this.firstTimeLabel.string = this.config.getTime(data.created_at);
         this.results = data;
-        data.status == 6 ?"" :this.querenBtn.active = false;
+
         this.parentComponent = parentComponent
     }
 
     start () {
 
     }
-
-    onClick(){
-        var url = `${this.UrlData.host}/api/order/paidOrder`;
-        this.FormData = new FormData();
-        this.FormData.append('user_id', this.results.user_id);
-        this.FormData.append('type','1');
-        this.FormData.append('order_id', this.results.order_id);
-        this.FormData.append('replace_id', this.UrlData.user_id);
-        this.FormData.append('token', this.token);
-        fetch(url, {
-            method: 'POST',
-            body: this.FormData
-        }).then((data) => data.json()).then((data) => {
-            if (data.status == 0) {
-                this.showAlert('确认成功！');
-                this.parentComponent.updataList()
-            } else {
-                this.showAlert(data.msg)
-            }
-        })
-    }
+    // 确认已付款点击事件，目前不需要展示此功能
+    // onClick(){
+    //     var url = `${this.UrlData.host}/api/order/paidOrder`;
+    //     this.FormData = new FormData();
+    //     this.FormData.append('user_id', this.results.user_id);
+    //     this.FormData.append('type','1');
+    //     this.FormData.append('order_id', this.results.order_id);
+    //     this.FormData.append('replace_id', this.UrlData.user_id);
+    //     this.FormData.append('token', this.token);
+    //     fetch(url, {
+    //         method: 'POST',
+    //         body: this.FormData
+    //     }).then((data) => data.json()).then((data) => {
+    //         if (data.status == 0) {
+    //             this.showAlert('确认成功！');
+    //             this.parentComponent.updataList()
+    //         } else {
+    //             this.showAlert(data.msg)
+    //         }
+    //     })
+    // }
     public showAlert(data) {
         var node = cc.instantiate(this.publicAlert);
         var canvas = cc.find('Canvas');

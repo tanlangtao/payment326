@@ -87,7 +87,6 @@ export default class NewClass extends cc.Component {
             if(data.status == 0){
                 this.results = data.data.alipay;
                 this.current = this.results[0];
-                console.log(this.results)
                 this.initRender();
             }else{
                 this.showAlert(data.msg)

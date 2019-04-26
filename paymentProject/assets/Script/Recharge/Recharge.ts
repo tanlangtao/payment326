@@ -33,8 +33,7 @@ export default class NewClass extends cc.Component {
     public token: string = '';
     public results: any = {};
     public zfbResults: any = {};
-    Client = null;
-
+    public app : any = {};
     // LIFE-CYCLE CALLBACKS:
 
 
@@ -48,12 +47,13 @@ export default class NewClass extends cc.Component {
     }
 
     start() {
-        this.Client = new ClientMessage();
-        this.Client.send('__done',{},()=>{})
+        this.app = cc.find('Canvas/Main').getComponent('Main');
+
+        this.app.Client.send('__done',{},()=>{})
     }
 
     public exitBtnClick() {
-       this.Client.send('__backtohall',{},()=>{})
+       this.app.Client.send('__backtohall',{},()=>{})
     }
 
     public historyBtnClick() {
@@ -71,9 +71,12 @@ export default class NewClass extends cc.Component {
                 this.zfbResults = data;
                 //动态渲染左侧导航
                 this.addNavToggle()
-            } else {
 
+            }else{
+                this.app.showAlert(data.msg)
             }
+        }).catch((error)=>{
+            this.app.showAlert(`错误${error}`)
         })
         let total = ''
     }

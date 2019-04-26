@@ -1,5 +1,6 @@
 import Config from "../Config";
 import ClientMessage from "../ClientMessage";
+import error = cc.error;
 
 // Learn TypeScript:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -33,9 +34,8 @@ export default class NewClass extends cc.Component {
     public token : string = '';
     public results : any = {};
     public zfbResults : any = {};
+    public app : any = {};
 
-    public Client = null;
-    
     onLoad () {
         
         var config = new Config();
@@ -46,12 +46,11 @@ export default class NewClass extends cc.Component {
     }
 
     start () {
-
-        this.Client = new ClientMessage();
-        this.Client.send('__done',{},()=>{})
+        this.app = cc.find('Canvas/Main').getComponent('Main');
+        this.app.Client.send('__done',{},()=>{})
     }
     public exitBtnClick(){
-        this.Client.send('__backtohall',{},()=>{})
+        this.app.Client.send('__backtohall',{},()=>{})
     }
 
     public fetchIndex(){
@@ -63,7 +62,10 @@ export default class NewClass extends cc.Component {
                 this.results = data;
                 this.addNavToggle()
             }else{
+                this.app.showAlert(data.msg)
             }
+        }).catch((error)=>{
+            this.app.showAlert(`错误${error}`)
         })
     }
 
@@ -75,6 +77,7 @@ export default class NewClass extends cc.Component {
 
     public addNavToggle(){
         var arr = [];
+        if(!this.results.data.withDraw_info) return;
         if(this.results.data.withDraw_info.replace_withdraw.is_close == 0){
             arr.push('人工兑换')
         }

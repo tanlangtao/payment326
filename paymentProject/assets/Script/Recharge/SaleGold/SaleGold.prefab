@@ -444,7 +444,7 @@
     "_prefab": {
       "__id__": 15
     },
-    "_opacity": 255,
+    "_opacity": 0,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -4384,7 +4384,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 75,
+      "width": 0,
       "height": 40
     },
     "_anchorPoint": {
@@ -4427,8 +4427,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "已设置",
-    "_N$string": "已设置",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 25,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -5277,6 +5277,9 @@
     },
     "applayBtn": {
       "__id__": 136
+    },
+    "titleBg": {
+      "__id__": 10
     },
     "showSelect": false,
     "_id": ""

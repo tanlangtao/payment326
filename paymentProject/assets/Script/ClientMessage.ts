@@ -9,7 +9,6 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
-
 @ccclass
 export default class NewClass extends cc.Component {
 
@@ -24,7 +23,7 @@ export default class NewClass extends cc.Component {
     public _t : any = ''
     constructor(){
         super();
-        // this.app = app
+        // this.app = App
         this.params = this.getParams()
         this.client = this.params.os === 'android' ? window['__REACT_WEB_VIEW_BRIDGE'] : window['ReactNativeWebView'] || window
         this.listenHandler = this.params.os === 'android' ? window.document : window.document
@@ -49,7 +48,7 @@ export default class NewClass extends cc.Component {
         })
         return p
     }
-    
+
     wait() {
         this._t = setInterval(() => {
             if (window.postMessage.length !== 2) {
@@ -58,7 +57,7 @@ export default class NewClass extends cc.Component {
             }
         }, 50)
     }
-    
+
     ready() {
         this.ok = true
         while (this.queue.length > 0) {
@@ -70,11 +69,11 @@ export default class NewClass extends cc.Component {
     addEventListener(eventName, fn) {
         this.eventMap[eventName] = fn
     }
-    
+
     removeEventListener(eventName) {
         delete this.eventMap[eventName]
     }
-    
+
     send(eventName, data, fn) {
         if (!this.ok) {
             this.queue.push({
@@ -97,7 +96,7 @@ export default class NewClass extends cc.Component {
 
         fn && fn()
     }
-    
+
     onMessage() {
         this.listenHandler.addEventListener('message', e => {
             cc.log("recive a message~!",e)

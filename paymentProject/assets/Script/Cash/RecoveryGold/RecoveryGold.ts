@@ -79,6 +79,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Node)
     applayBtn: cc.Node = null;
 
+    @property(cc.Node)
+    titleBg: cc.Node = null;
+
     @property
     showSelect = false;
     results = null;
@@ -159,8 +162,10 @@ export default class NewClass extends cc.Component {
             //根据status判断界面显示
             this.statusLabel.string = status == 1 ? "审核中" : (status == 2 ? '挂单中' : '');
             this.saleGoldLabel.string = this.config.toDecimal(data.user_info.now_last_gold);
-            if(status == 1 || status == 2){
 
+            if(status == 1 || status == 2){
+                //根据状态决定是否显示头部文字
+                this.titleBg.opacity = 255;
                 //禁用input输入
                 this.amountInput.node.active = false;
                 this.ContactInput.node.active = false;
@@ -175,6 +180,9 @@ export default class NewClass extends cc.Component {
                     this.applayBtn.children[0].getComponent(cc.Label).string = '撤销回收';
                 }
             }else {
+                //根据状态决定是否显示头部文字
+                this.titleBg.opacity = 0;
+
                 this.amountInput.node.active = true;
                 this.ContactInput.node.active = true;
                 this.scaleInput.node.active = true;
@@ -183,8 +191,8 @@ export default class NewClass extends cc.Component {
                 this.scaleLabel.string = '';
                 this.ContactInput.string = data.user_info.contact_info;
             }
-
         }
+
     }
 
     //selectItem回调

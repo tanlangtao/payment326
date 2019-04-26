@@ -69,7 +69,7 @@ export default class NewClass extends cc.Component {
     public current = {channel_name: "银行卡1",
         channel_type: "2",
         max_amount: "40000",
-        min_amount: "50"};
+        min_amount: "1"};
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
@@ -91,10 +91,9 @@ export default class NewClass extends cc.Component {
         }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
                 this.data = data;
-                cc.log(data)
                 this.init();
             }else{
-                
+                this.showAlert(data.msg)
             }
         })
     }
@@ -185,7 +184,8 @@ export default class NewClass extends cc.Component {
             body:this.FormData
         }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
-                this.showAlert('申请成功！')
+                this.showAlert('申请成功！');
+                this.fetchIndex();
             }else{
                 this.showAlert(data.msg)
             }

@@ -36,6 +36,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     publicAlert : cc.Prefab = null;
 
+    @property(cc.Node)
+    fuzhiBtn4 : cc.Node = null;
+
     @property
     public results = {};
     public token = null;
@@ -50,6 +53,9 @@ export default class NewClass extends cc.Component {
         this.card_numLabel.string = data.data.card_num;
         this.nickNameLabel.string = decodeURI(this.UrlData.user_name);
         this.remarkLabel.string = data.data.remark;
+        if(this.remarkLabel.string == ''){
+            this.fuzhiBtn4.removeFromParent();
+        }
     }
     // LIFE-CYCLE CALLBACKS:
 
@@ -65,22 +71,19 @@ export default class NewClass extends cc.Component {
 
     copyCard_num(){
         this.config.copyToClipBoard(this.card_numLabel.string);
-        this.showAlert(`复制成功！${this.card_numLabel.string}`);
     }
 
     copyCard_name(){
         this.config.copyToClipBoard(this.card_nameLabel.string);
-        this.showAlert(`复制成功！${this.card_nameLabel.string}`);
+
     }
 
     copyAmount(){
         this.config.copyToClipBoard(this.amountLabel.string);
-        this.showAlert(`复制成功！${this.amountLabel.string}`);
     }
 
     copyRemark(){
         this.config.copyToClipBoard(this.remarkLabel.string);
-        this.showAlert(`复制成功！${this.remarkLabel.string}`);
     }
 
     removeSelf(){

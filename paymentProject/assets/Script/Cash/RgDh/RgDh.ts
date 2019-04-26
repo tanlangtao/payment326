@@ -85,13 +85,16 @@ export default class NewClass extends cc.Component {
                 this.data = data;
                 this.init();
             }else{
-
+                this.showAlert(data.msg)
             }
+        }).catch((error)=>{
+            this.showAlert(`错误${error}`)
         })
     }
 
     init(){
         var data = this.data.data;
+        if(!this.data.data.withDraw_info) return;
         var replace_withdraw = this.data.data.withDraw_info.replace_withdraw;
         this.amountLabel.string = this.config.toDecimal(data.game_gold);
         this.czArea.string = `兑换范围:(${replace_withdraw.min_amount} - ${replace_withdraw.max_amount})`;

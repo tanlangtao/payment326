@@ -52,7 +52,7 @@ export default class NewClass extends cc.Component {
         if(this.passwordInput.string == '' ){
             this.showAlert('密码不能为空!')
         }else if(this.passwordInput.string.length < 6 || this.passwordInput.string.length > 10){
-            this.showAlert('请设置6-10位新密码！')
+            this.showAlert('密码错误！')
         }else{
             this.node.removeFromParent();
             this.fetchcheckPassword();

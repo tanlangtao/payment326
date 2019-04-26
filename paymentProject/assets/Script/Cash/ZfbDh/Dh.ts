@@ -79,7 +79,6 @@ export default class NewClass extends cc.Component {
         }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
                 this.data = data;
-                cc.log(data)
                 this.init();
             }else{
                 
@@ -174,7 +173,8 @@ export default class NewClass extends cc.Component {
             body:this.FormData
         }).then((data)=>data.json()).then((data)=>{
             if(data.status == 0){
-                this.showAlert('申请成功！')
+                this.showAlert('申请成功！');
+                this.fetchIndex();
             }else{
                 this.showAlert(data.msg)
             }

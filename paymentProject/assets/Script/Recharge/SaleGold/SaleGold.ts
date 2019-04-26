@@ -80,6 +80,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Node)
     applayBtn: cc.Node = null;
 
+    @property(cc.Node)
+    titleBg: cc.Node = null;
+
     @property
     showSelect = false;
     results = null;
@@ -139,8 +142,10 @@ export default class NewClass extends cc.Component {
                 this.results = data;
                 this.init();
             } else {
-
+                this.showAlert(data.msg);
             }
+        }).catch((error)=>{
+            this.showAlert(`错误${error}`)
         })
     }
 
@@ -156,11 +161,14 @@ export default class NewClass extends cc.Component {
             //根据status判断界面显示
             this.statusLabel.string = status == 1 || status == 2 ? "审核中" :(status == 4 ? '挂单中':'' );
             if(status == 1|| status == 2 || status == 4){
+                //根据状态决定是否显示头部文字
+                this.titleBg.opacity = 255;
+
                 this.saleGoldLabel.string = this.config.toDecimal(data.user_info.now_up_last_gold);
                 //禁用input输入
                 this.amountInput.node.active = false;
                 this.ContactInput.node.active = false;
-                //设置出售金币额度的值
+                //出售金币额度
                 this.amountLabel.string = this.config.toDecimal(data.user_info.now_up_gold);
                 this.current = Number(data.user_info.contact_type)-1;
                 this.selectLabel.string = this.data[this.current];
@@ -170,9 +178,14 @@ export default class NewClass extends cc.Component {
                     this.applayBtnLabel.string = '撤销上架';
                 }
             }else{
+                //根据状态决定是否显示头部文字
+                this.titleBg.opacity = 0;
+
                 this.saleGoldLabel.string = this.config.toDecimal(data.user_info.now_up_last_gold);
                 this.amountInput.node.active = true;
                 this.ContactInput.node.active = true;
+                //非上架或等待上架，销售金额为0
+                this.saleGoldLabel.string = '0';
                 this.amountLabel.string = '';
                 this.contactLabel.string = '';
                 this.current = Number(data.user_info.contact_type)-1;

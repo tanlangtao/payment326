@@ -444,7 +444,7 @@
     "_prefab": {
       "__id__": 15
     },
-    "_opacity": 255,
+    "_opacity": 0,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -5797,6 +5797,9 @@
     },
     "applayBtn": {
       "__id__": 151
+    },
+    "titleBg": {
+      "__id__": 10
     },
     "showSelect": false,
     "_id": ""

@@ -7,12 +7,10 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-
 const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Config extends cc.Component {
-
     @property()
     public token:string=''
     //获取url参数
@@ -23,33 +21,69 @@ export default class Config extends cc.Component {
         if(arr.env=='dev'){
             this.token = 'e40f01afbb1b9ae3dd6747ced5bca532'
         }else if(arr.env =='pre'){
-            this.token = '93059400a426129770e606b6de68fca5'
+            this.token = 'e40f01afbb1b9ae3dd6747ced5bca532'
         }else if(arr.env =='online'){
-            this.token = '93059400a426129770e606b6de68fca5'
+            this.token = 'e40f01afbb1b9ae3dd6747ced5bca532'
         }
         return arr;
     }
     //复制内容到剪贴板
     public copyToClipBoard(str) {
-        if (cc.sys.isNative) {
-        } else if (cc.sys.isBrowser) {
-            var textArea:any = null;
-            textArea = document.getElementById("clipBoard");
-            if (textArea === null) {
-                textArea = document.createElement("textarea");
-                textArea.id = "clipBoard";
-                textArea.textContent = str;
-                document.body.appendChild(textArea);
-            }
-            textArea.select();
-            try {
-                const msg = document.execCommand('copy') ? 'successful' : 'unsuccessful';
-                cc.log("已经复制到剪贴板");
-                document.body.removeChild(textArea);
-            } catch (err) {
-                cc.log("复制到剪贴板失败");
-            }
+        // if (cc.sys.isNative) {
+        //
+        // } else if (cc.sys.isBrowser) {
+        //     var textArea:any = null;
+        //     textArea = document.getElementById("clipBoard");
+        //     if (textArea === null) {
+        //         textArea = document.createElement("textarea");
+        //         textArea.id = "clipBoard";
+        //         textArea.textContent = str;
+        //         document.body.appendChild(textArea);
+        //     }
+        //     textArea.select();
+        // var app = cc.find('Canvas/Main').getComponent('Main');
+        //     try {
+        //         const msg = document.execCommand('copy',false,null) ? 'successful' : 'unsuccessful';
+        //         document.body.removeChild(textArea);
+        //         app.showAlert(`复制成功！${str}`);
+        //     } catch (err) {
+        //         app.showAlert(`复制失败！${err}`);
+        //     }
+        // }
+        // var input : any = null;
+        // input = document.getElementById('input1');
+        // if(input === null){
+        //      input = document.createElement("input");
+        //      input.id = "input1";
+        //      input.value = str;
+        //      document.body.appendChild(input);
+        // }
+        // input.select();
+        // var app = cc.find('Canvas/Main').getComponent('Main');
+        // try {
+        //     const msg = document.execCommand('copy',false,null) ? 'successful' : 'unsuccessful';
+        //     document.body.removeChild(input);
+        //     app.showAlert(`复制成功！${str}`);
+        // } catch (err) {
+        //     app.showAlert(`复制失败！${err}`);
+        // }
+        var app = cc.find('Canvas/Main').getComponent('Main');
+        try
+        {
+            let input = document.createElement("input");
+            input.readOnly = true;
+            input.value = str;
+            document.body.appendChild(input);
+            input.select();
+            input.setSelectionRange(0, input.value.length);
+            document.execCommand("Copy");
+            document.body.removeChild(input);
+            app.showAlert(`复制成功！${str}`);
+        } catch (err)
+        {
+            app.showAlert(`复制失败！${err}`);
         }
+
     }
     //保留两位小数
     public toDecimal(num) {
