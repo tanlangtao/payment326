@@ -57,6 +57,7 @@ export default class NewClass extends cc.Component {
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {
+            this.saleGoldList.removeAllChildren();
             if (data.status == 0) {
                 this.results = data;
                 this.init();
@@ -89,15 +90,10 @@ export default class NewClass extends cc.Component {
         node.getComponent('PublicAlert').init(data);
     }
 
-    updataList(){
-        this.saleGoldList.removeAllChildren();
-        this.fetchIndex();
-    }
-
     pageUp(){
         if(this.page > 1){
             this.page = this.page - 1;
-            this.updataList();
+            this.fetchIndex();
         }
     }
 
@@ -105,7 +101,7 @@ export default class NewClass extends cc.Component {
         let totalPage = Number(this.results.data.total_page);
         if(this.page < totalPage){
             this.page = this.page + 1;
-            this.updataList();
+            this.fetchIndex();
         }
     }
 

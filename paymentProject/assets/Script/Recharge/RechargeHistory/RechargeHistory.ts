@@ -37,7 +37,6 @@ export default class NewClass extends cc.Component {
     public results : any = {};
     public order_status = 0;
     public page = 1;
-    public isReceive = false;
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
@@ -47,16 +46,11 @@ export default class NewClass extends cc.Component {
 
         this.addNavToggle()
 
-        this.updataList()
+        this.fetchIndex();
     }
 
     start () {
 
-    }
-
-    updataList(){
-        this.List.removeAllChildren();
-        this.fetchIndex();
     }
 
     public fetchIndex(){
@@ -64,6 +58,8 @@ export default class NewClass extends cc.Component {
         fetch(url,{
             method:'get'
         }).then((data)=>data.json()).then((data)=>{
+            //结果返回之前先清空列表
+            this.List.removeAllChildren();
             if(data.status == 0){
                 this.results = data;
                 this.pageLabel.string = `${this.page} / ${data.data.total_page == 0 ? '1' : data.data.total_page}`;
@@ -84,8 +80,6 @@ export default class NewClass extends cc.Component {
             }else{
                 this.showAlert(data.msg);
             }
-            //收到结果后才能点击搜索，上下翻页，避免页面错乱
-            this.isReceive = true;
         })
     }
 
@@ -119,22 +113,16 @@ export default class NewClass extends cc.Component {
     }
 
     pageUp(){
-        if(this.isReceive){
-            if(this.page > 1){
-                this.page = this.page - 1;
-                this.updataList();
-                this.isReceive = false;
-            }
+        if(this.page > 1){
+            this.page = this.page - 1;
+            this.fetchIndex();
         }
     }
 
     pageDown(){
-        if(this.isReceive){
-            if(this.page < this.results.data.total_page ){
-                this.page = this.page + 1;
-                this.updataList();
-                this.isReceive = false;
-            }
+        if(this.page < this.results.data.total_page ){
+            this.page = this.page + 1;
+            this.fetchIndex();
         }
     }
     // update (dt) {}

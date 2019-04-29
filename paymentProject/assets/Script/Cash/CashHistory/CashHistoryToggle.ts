@@ -38,7 +38,7 @@ export default class NewClass extends cc.Component {
     onClick(){
         this.parentComponet.order_status = this.index;
         this.parentComponet.page = 1;
-        this.parentComponet.updataList();
+        this.parentComponet.fetchIndex();
     }
     // update (dt) {}
 }

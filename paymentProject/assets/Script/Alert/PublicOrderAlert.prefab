@@ -1475,12 +1475,12 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 1,
       "y": 1
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -56.1,
+      "x": 44.7,
       "y": 120,
       "z": 0
     },
@@ -1522,7 +1522,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 2,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
@@ -1573,12 +1573,12 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 1,
       "y": 1
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -56.1,
+      "x": 44.7,
       "y": 72,
       "z": 0
     },
@@ -1620,7 +1620,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 2,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
@@ -1671,12 +1671,12 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 1,
       "y": 1
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -56.1,
+      "x": 44.7,
       "y": 24,
       "z": 0
     },
@@ -1718,7 +1718,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 2,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
@@ -1769,12 +1769,12 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 1,
       "y": 1
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -56.1,
+      "x": 44.7,
       "y": -24,
       "z": 0
     },
@@ -1816,7 +1816,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 2,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
@@ -1867,12 +1867,12 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 1,
       "y": 1
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -56.1,
+      "x": 44.7,
       "y": -72,
       "z": 0
     },
@@ -1914,7 +1914,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 2,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
@@ -1965,12 +1965,12 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 1,
       "y": 1
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -58,
+      "x": 44.8,
       "y": -120,
       "z": 0
     },
@@ -2003,8 +2003,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "备注：",
-    "_N$string": "备注：",
+    "_string": "备注:",
+    "_N$string": "备注:",
     "_fontSize": 22,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -2858,8 +2858,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "充值方式:",
-    "_N$string": "充值方式:",
+    "_string": "收款银行:",
+    "_N$string": "收款银行:",
     "_fontSize": 22,
     "_lineHeight": 40,
     "_enableWrapText": true,

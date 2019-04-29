@@ -254,7 +254,7 @@ export default class NewClass extends cc.Component {
         }else if(scale < 0.1 ){
             this.showAlert('手续费不能小于等于0!')
         }else if(scale > 99.9 ){
-            this.showAlert('手续费不能大于100%!')
+            this.showAlert('手续费不能大于99.9%!')
         }else{
             this.showTestPassword(3);
         }

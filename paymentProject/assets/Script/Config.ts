@@ -50,38 +50,26 @@ export default class Config extends cc.Component {
         //         app.showAlert(`复制失败！${err}`);
         //     }
         // }
-        // var input : any = null;
-        // input = document.getElementById('input1');
-        // if(input === null){
-        //      input = document.createElement("input");
-        //      input.id = "input1";
-        //      input.value = str;
-        //      document.body.appendChild(input);
-        // }
-        // input.select();
-        // var app = cc.find('Canvas/Main').getComponent('Main');
-        // try {
-        //     const msg = document.execCommand('copy',false,null) ? 'successful' : 'unsuccessful';
-        //     document.body.removeChild(input);
-        //     app.showAlert(`复制成功！${str}`);
-        // } catch (err) {
-        //     app.showAlert(`复制失败！${err}`);
-        // }
+
         var app = cc.find('Canvas/Main').getComponent('Main');
-        try
-        {
-            let input = document.createElement("input");
-            input.readOnly = true;
-            input.value = str;
-            document.body.appendChild(input);
-            input.select();
-            input.setSelectionRange(0, input.value.length);
-            document.execCommand("Copy");
-            document.body.removeChild(input);
-            app.showAlert(`复制成功！${str}`);
-        } catch (err)
-        {
-            app.showAlert(`复制失败！${err}`);
+        if(document.execCommand){
+            try
+            {
+                let input = document.createElement("input");
+                input.readOnly = true;
+                input.value = str;
+                document.body.appendChild(input);
+                input.select();
+                input.setSelectionRange(0, input.value.length);
+                document.execCommand("Copy");
+                document.body.removeChild(input);
+                app.showAlert(`复制成功！${str}`);
+            } catch (err)
+            {
+                app.showAlert(`复制失败！${err}`);
+            }
+        }else{
+            app.showAlert(`无法使用复制，请升级系统！`);
         }
 
     }

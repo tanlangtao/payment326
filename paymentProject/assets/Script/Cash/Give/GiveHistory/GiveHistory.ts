@@ -98,6 +98,7 @@ export default class NewClass extends cc.Component {
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {
+            this.GiveHistoryList.removeAllChildren();
             if (data.status == 0) {
                 this.results = data;
                 this.init();
@@ -162,33 +163,23 @@ export default class NewClass extends cc.Component {
         }
 
     }
-
-    updataList(){
-        this.GiveHistoryList.removeAllChildren();
-        this.fetchIndex();
-    }
-
     deleteId(){
         this.IdInput.string = '';
     }
 
     pageUp(){
-        if(this.isReceive){
-            if(this.page > 1){
-                this.page = this.page - 1;
-                this.updataList();
-                this.isReceive = false;
-            }
+        if(this.page > 1){
+            this.page = this.page - 1;
+            this.fetchIndex();
+            this.isReceive = false;
         }
     }
 
     pageDown(){
-        if(this.isReceive){
-            if(this.page < this.results.data.total_page){
-                this.page = this.page + 1;
-                this.updataList();
-                this.isReceive = false;
-            }
+        if(this.page < this.results.data.total_page){
+            this.page = this.page + 1;
+            this.fetchIndex();
+            this.isReceive = false;
         }
 
     }
@@ -200,7 +191,7 @@ export default class NewClass extends cc.Component {
     onClick() {
        if(this.isReceive){
            this.page = 1;
-           this.updataList();
+           this.fetchIndex();
            this.isReceive = false;
        }
     }
