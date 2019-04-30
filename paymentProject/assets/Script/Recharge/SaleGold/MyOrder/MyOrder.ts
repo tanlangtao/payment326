@@ -96,7 +96,7 @@ export default class NewClass extends cc.Component {
     }
 
     public fetchIndex() {
-        var url = `${this.UrlData.host}/api/sell_gold/mySellGoldOrderList?user_id=${this.UrlData.user_id}&pay_id=${this.IdInput.string == "" ? 0:this.IdInput.string}&order_status=${this.current == 2 ?'6' :this.current}&token=${this.token}`;
+        var url = `${this.UrlData.host}/api/sell_gold/mySellGoldOrderList?user_id=${this.UrlData.user_id}&pay_id=${this.IdInput.string == "" ? 0:this.IdInput.string}&order_status=${this.current == 2 ?'6' :this.current}&token=${this.token}&page_set=5`;
         fetch(url, {
             method: 'get'
         }).then((data) => data.json()).then((data) => {

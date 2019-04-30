@@ -91,7 +91,7 @@ export default class NewClass extends cc.Component {
     }
 
     public addNavToggle(){
-        var arr = ['全部','已成功','未成功','已撤销'];
+        var arr = ['全部','已完成','未完成','已撤销'];
         for(let i:number = 0; i< arr.length; i++){
             var node = cc.instantiate(this.NavToggle);
             this.ToggleContainer.addChild(node);

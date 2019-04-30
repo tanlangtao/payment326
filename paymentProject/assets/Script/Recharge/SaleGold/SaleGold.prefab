@@ -2903,7 +2903,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 0,
       "height": 40
     },
     "_anchorPoint": {
@@ -2946,8 +2946,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "出售范围：",
-    "_N$string": "出售范围：",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 20,
     "_lineHeight": 40,
     "_enableWrapText": true,

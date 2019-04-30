@@ -65,7 +65,7 @@ export default class NewClass extends cc.Component {
                 this.app.showAlert(data.msg)
             }
         }).catch((error)=>{
-            this.app.showAlert(`错误${error}`)
+            this.app.showAlert(`网络连接失败，请重试`)
         })
     }
 

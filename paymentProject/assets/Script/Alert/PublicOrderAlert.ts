@@ -44,7 +44,7 @@ export default class NewClass extends cc.Component {
     public token = null;
     public config = null;
     public UrlData : any = [];
-
+    app : any= {};
     public init(data){
         this.results =data;
         this.amountLabel.string = this.config.toDecimal(data.data.amount);
@@ -66,24 +66,28 @@ export default class NewClass extends cc.Component {
     }
 
     start () {
-
+        this.app = cc.find('Canvas/Main').getComponent('Main');
     }
 
     copyCard_num(){
         this.config.copyToClipBoard(this.card_numLabel.string);
+        // this.app.Client.send('__clipboard', { text: this.card_numLabel.string })
     }
 
     copyCard_name(){
         this.config.copyToClipBoard(this.card_nameLabel.string);
+        // this.app.Client.send('__clipboard', { text: this.card_nameLabel.string })
 
     }
 
     copyAmount(){
         this.config.copyToClipBoard(this.amountLabel.string);
+        // this.app.Client.send('__clipboard', { text: this.amountLabel.string })
     }
 
     copyRemark(){
         this.config.copyToClipBoard(this.remarkLabel.string);
+        // this.app.Client.send('__clipboard', { text: this.remarkLabel.string })
     }
 
     removeSelf(){
