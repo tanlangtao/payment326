@@ -76,7 +76,7 @@ export default class NewClass extends cc.Component {
         this.statusLabel.string = data.status == 8 ?'已完成':'未成功';
         this.created_atLabel.string = this.config.getTime(data.created_at);
         this.arrival_atLabel.string = data.arrival_at == 0 ? '无' : this.config.getTime(data.arrival_at);
-        this.admin_remarkLabel.string = data.user_remark ? data.user_remark :"" ;
+        this.admin_remarkLabel.string = data.user_remark ? data.user_remark.substring(0,14) :"" ;
         this.results = data.results;
         data.status == 7? '' : this.orderBtn.removeFromParent();
     }

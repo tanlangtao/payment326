@@ -25,7 +25,7 @@ export default class NewClass extends cc.Component {
         super();
         // this.app = App
         this.params = this.getParams()
-        this.client = this.params.os === 'android' ? window['__REACT_WEB_VIEW_BRIDGE'] : window['ReactNativeWebView'] || window
+        this.client = window.parent;
         this.listenHandler = this.params.os === 'android' ? window.document : window.document
         this.eventMap = {}
         this.onMessage()
@@ -92,7 +92,7 @@ export default class NewClass extends cc.Component {
         // IOS __REACT_WEB_VIEW_BRIDGE
         // this.client.ReactNativeWebView.postMessage(JSON.stringify(message))
 
-        this.client.postMessage(JSON.stringify(message))
+        this.client.postMessage(JSON.stringify(message),'*');
 
         fn && fn()
     }
